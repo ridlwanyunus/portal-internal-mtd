@@ -10,7 +10,7 @@ import { ResponseTemplate } from '../../model/response-template.model';
 export class PenyediaAplikasiService {
 
   httpOptions = {}
-  url = 'http://localhost:8080';
+  url = 'http://36.94.117.75:8080';
 
   constructor(private http: HttpClient) { }
 
