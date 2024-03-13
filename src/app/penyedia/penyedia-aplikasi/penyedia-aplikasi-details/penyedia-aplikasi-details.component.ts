@@ -4,6 +4,8 @@ import { PenyediaAplikasiService } from '../../../services/penyedia/penyedia-apl
 import { ResponseTemplate } from '../../../model/response-template.model';
 import { Route, Router } from '@angular/router';
 
+
+declare var KTToastrDemo: any;
 @Component({
   selector: 'app-penyedia-aplikasi-details',
   templateUrl: './penyedia-aplikasi-details.component.html',
@@ -74,15 +76,16 @@ export class PenyediaAplikasiDetailsComponent {
         const response = <ResponseTemplate> data;
         if(response.status == 1){
           this.status = 1;
-          this.message = response.message;
+          KTToastrDemo.success(response.message);
         } else {
           this.status = 0;
-          this.message = response.message;
+          KTToastrDemo.error(response.message);
         }
       },
       error: (err) => {
         console.log(err)
         this.status = 0;
+        KTToastrDemo.error(err.error.message);
       }
     })
   }

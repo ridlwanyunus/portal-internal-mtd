@@ -22,80 +22,68 @@
                 </div>
             </div>
 
-            <div class="form-group form-group-last">
-                <div *ngIf="status == 1" class="alert alert-success">
-                    <div class="alert-text" >{{ message }}</div>
-                </div>
-                <div *ngIf="status == 0" class="alert alert-danger">
-                    <div class="alert-text" >{{ message }}</div>
-                </div>
-            </div>
             <!--begin::Form-->
             <form [formGroup]="distributorForm" (ngSubmit)="submitForm()" class="kt-form">
                 <div class="kt-portlet__body">
-                    
-
-                    <div class="form-group">
-                        <label>Nama</label>
-                        <input type="text" class="form-control" aria-describedby="namaHelp" id="nameDistributor" formControlName="nameDistributor" placeholder="Enter Nama">
-                        <span class="form-text text-muted">We'll never share your email with anyone else.</span>
-                    </div>
-
-                    <div class="form-group">
-                        <label>NPWP</label>
-                        <input type="text" class="form-control" aria-describedby="emailHelp" id="npwpDistributor" formControlName="npwpDistributor" placeholder="Enter NPWP">
-                        <span class="form-text text-muted">We'll never share your email with anyone else.</span>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" class="form-control" aria-describedby="emailHelp" id="password" formControlName="password" placeholder="Enter Password">
-                        <span class="form-text text-muted">We'll never share your email with anyone else.</span>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" class="form-control" aria-describedby="emailHelp" id="email" formControlName="email" placeholder="Enter email">
-                        <span class="form-text text-muted">We'll never share your email with anyone else.</span>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Telephone</label>
-                        <input type="text" class="form-control" aria-describedby="emailHelp" id="telephone" formControlName="telephone" placeholder="Enter Telephone">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exampleTextarea">Alamat</label>
-                        <textarea class="form-control" id="address" formControlName="address" rows="3"></textarea>
-                    </div>
-
-                    
-
-                    <div class="form-group">
-                        <label>NIP Perekam</label>
-                        <input type="text" class="form-control" id="recorderNip" formControlName="recorderNip" aria-describedby="emailHelp" placeholder="Enter NIP">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exampleSelect1">Channel</label>
-                        <select class="form-control" id="channel" formControlName="channel">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Unggah Dokumen</label>
-                        <div></div>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="customFile" (change)="onChangeFile($event)">
-                            <label class="custom-file-label" for="customFile">Choose file</label>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Nama</label>
+                                <input type="text" class="form-control" aria-describedby="namaHelp" id="nameDistributor"
+                                    formControlName="nameDistributor" placeholder="Enter Nama">
+                            </div>
+                            <div class="form-group">
+                                <label>NPWP</label>
+                                <input type="text" class="form-control" aria-describedby="emailHelp" id="npwpDistributor"
+                                    formControlName="npwpDistributor" placeholder="Enter NPWP">
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" class="form-control" aria-describedby="emailHelp" id="password" formControlName="password"
+                                    placeholder="Enter Password">
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" class="form-control" aria-describedby="emailHelp" id="email" formControlName="email"
+                                    placeholder="Enter email">
+                            </div>
+                            <div class="form-group">
+                                <label>Telephone</label>
+                                <input type="text" class="form-control" aria-describedby="emailHelp" id="telephone" formControlName="telephone"
+                                    placeholder="Enter Telephone">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>NIP Perekam</label>
+                                <input type="text" class="form-control" id="recorderNip" formControlName="recorderNip" aria-describedby="emailHelp"
+                                    placeholder="Enter NIP">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleSelect1">Channel</label>
+                                <select class="form-control" id="channel" formControlName="channel">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleTextarea">Alamat</label>
+                                <textarea class="form-control" id="address" formControlName="address" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Unggah Dokumen</label>
+                                <div></div>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="customFile" (change)="onChangeFile($event)">
+                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
                 <div class="kt-portlet__foot">
                     <div class="kt-form__actions">
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -103,10 +91,8 @@
                     </div>
                 </div>
             </form>
-
             <!--end::Form-->
         </div>
-
         <!--end::Portlet-->
     </div>
 </div>

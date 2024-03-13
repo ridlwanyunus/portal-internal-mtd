@@ -42,7 +42,7 @@ export class PenyediaAplikasiService {
         }
       ],
       "draw": 0,
-      "length": 10,
+      "length": 100,
       "order": [
         {
           "column": 0,
@@ -58,7 +58,6 @@ export class PenyediaAplikasiService {
 
     return this.http.post(endpoint, exampleRequest, this.httpOptions)
       .pipe(catchError((err: HttpErrorResponse) => {
-        console.log(err);
         return throwError(() => err);
       }))
   }

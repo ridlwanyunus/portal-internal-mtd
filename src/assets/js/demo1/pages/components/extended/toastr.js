@@ -4,8 +4,24 @@
 var KTToastrDemo = function() {
 
     // Private functions
+    var options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"        
+    }
 
-    // basic demo
     var demo = function() {
         var i = -1;
         var toastCount = 0;
@@ -101,7 +117,8 @@ var KTToastrDemo = function() {
                 toastr.options.tapToDismiss = false;
             }
             if (!msg) {
-                msg = getMessage();
+//                msg = getMessage();
+                msg = "success update this is ridlwan yunus";
             }
 
             $('#toastrOptions').text(
@@ -152,14 +169,27 @@ var KTToastrDemo = function() {
         });
     }
 
+    var success = function (message){
+        toastr.options = this.options;
+        toastr.success(message);
+    }
+
+    var error = function (message){
+        toastr.options = this.options;
+        toastr.error(message);
+    }
+
     return {
         // public functions
-        init: function() {
-            demo();
+        init: function(message) {
+            //demo();
+        },
+        success: function(message){
+            success(message);
+        },
+        error: function(message){
+            error(message)
         }
     };
 }();
 
-jQuery(document).ready(function() {
-    KTToastrDemo.init();
-});

@@ -83,11 +83,6 @@
     </div>
     <div class="kt-portlet__body kt-portlet__body--fit">
 
-
-
-
-
-
         <!--begin: Datatable -->
         <div class="kt-datatable kt-datatable--default kt-datatable--brand kt-datatable--loaded" id="local_data"
             style="">
@@ -122,7 +117,7 @@
                 </thead>
                 <tbody class="kt-datatable__body" style="">
                     <tr data-row="0" class="kt-datatable__row" style="left: 0px;"
-                        *ngFor="let item of items; let i = index">
+                        *ngFor="let item of currentItemsToShow; let i = index">
                         <td class="kt-datatable__cell--center kt-datatable__cell kt-datatable__cell--check"
                             data-field="RecordID">
                             <span style="width: 20px;">
@@ -153,21 +148,20 @@
                     </tr>
                 </tbody>
             </table>
+            <mat-paginator 
+                (page)="onPageChange($event)"
+                [length]="items.length"
+                [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]" aria-label="select page of distributor">
+            </mat-paginator>
         </div> <!--end: Datatable -->
 
 
 
-
-
-
-
-
-
-
-
-        <p>{{ master }}</p>
         <!--begin: Datatable -->
-
+        <div *ngIf="loadingService.isLoading | async" id="loading">
+            <mat-spinner diameter="80" mode="indeterminate" strokeWidth="8" ></mat-spinner>
+        </div>
         <!--end: Datatable -->
         <router-outlet></router-outlet>
     </div>

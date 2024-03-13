@@ -16,10 +16,17 @@ import { RetailComponent } from './users/retail/retail.component';
 import { PenyediaPrinterComponent } from './penyedia/penyedia-printer/penyedia-printer.component';
 import { PenyediaCartridgeComponent } from './penyedia/penyedia-cartridge/penyedia-cartridge.component';
 import { DataTablesModule } from 'angular-datatables';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { PenyediaAplikasiComponent } from './penyedia/penyedia-aplikasi/penyedia-aplikasi.component';
 import { PenyediaAplikasiDetailsComponent } from './penyedia/penyedia-aplikasi/penyedia-aplikasi-details/penyedia-aplikasi-details.component';
 import { PenyediaAplikasiListComponent } from './penyedia/penyedia-aplikasi/penyedia-aplikasi-list/penyedia-aplikasi-list.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { InterceptorService } from './services/interceptor/interceptor.service';
+
 
 @NgModule({
   declarations: [
@@ -44,9 +51,16 @@ import { PenyediaAplikasiListComponent } from './penyedia/penyedia-aplikasi/peny
     FormsModule,
     ReactiveFormsModule,
     DataTablesModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSlideToggleModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatProgressSpinnerModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass:InterceptorService, multi: true },
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
