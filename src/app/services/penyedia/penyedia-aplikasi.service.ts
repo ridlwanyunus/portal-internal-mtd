@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { DtRequest } from '../../model/datatables/dt-request.model';
 import { Observable, catchError, throwError } from 'rxjs';
 import { ResponseTemplate } from '../../model/response-template.model';
@@ -60,5 +60,13 @@ export class PenyediaAplikasiService {
       .pipe(catchError((err: HttpErrorResponse) => {
         return throwError(() => err);
       }))
+  }
+
+  getChannel(): Observable<unknown>{
+    let endpoint = this.url + '/register/channel/list';
+    return this.http.get<ResponseTemplate>(endpoint).pipe(catchError((err: HttpErrorResponse) => {
+      debugger;
+      return throwError(() => err);
+    }));
   }
 }

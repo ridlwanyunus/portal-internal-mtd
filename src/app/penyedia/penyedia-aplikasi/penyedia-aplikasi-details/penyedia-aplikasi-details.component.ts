@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PenyediaAplikasiService } from '../../../services/penyedia/penyedia-aplikasi.service';
 import { ResponseTemplate } from '../../../model/response-template.model';
 import { Route, Router } from '@angular/router';
+import { throwError } from 'rxjs';
 
 
 declare var KTToastrDemo: any;
@@ -11,12 +12,14 @@ declare var KTToastrDemo: any;
   templateUrl: './penyedia-aplikasi-details.component.html',
   styleUrl: './penyedia-aplikasi-details.component.css'
 })
-export class PenyediaAplikasiDetailsComponent {
+export class PenyediaAplikasiDetailsComponent implements OnInit {
 
   distributorForm: any;
   file: any;
   status: number = -1;
   message: any;
+
+  channels: any = [];
 
   data: any;
   
@@ -35,6 +38,9 @@ export class PenyediaAplikasiDetailsComponent {
     } else {
       this.fromNewRecord();
     }
+  }
+  ngOnInit(): void {
+    this.loadChannels();
   }
 
   fromNewRecord(): void {
@@ -88,6 +94,23 @@ export class PenyediaAplikasiDetailsComponent {
         KTToastrDemo.error(err.error.message);
       }
     })
+  }
+
+  loadChannels(){
+    this.service.getChannel().subscribe({
+      
+      next: (data) => {
+        const response = <ResponseTemplate> data;
+        if(response.status == 1){
+          this.channels = response.data;
+        } else {
+          KTToastrDemo.error(response.message);
+        }
+      },
+      error: (err) => {
+        throwError(() => err);
+      }
+    });
   }
 
   onChangeFile(event: any){

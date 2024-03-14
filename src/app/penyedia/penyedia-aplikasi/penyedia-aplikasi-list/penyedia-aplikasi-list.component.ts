@@ -48,6 +48,7 @@ export class PenyediaAplikasiListComponent {
   ngOnDestroy(): void {
   }
 
+  // Create
   getDistributor(): void{
     this.service.getDistributor().subscribe({
       next: (data) => {
@@ -65,19 +66,15 @@ export class PenyediaAplikasiListComponent {
   }
 
 
-
+  // Create
   buttonEdit(item: any): void {
     console.log(item)
     this.router.navigate(['penyedia/penyedia-aplikasi/details'], { state: { data: item } })
   }
 
+  // Pagination
   onPageChange($event: any){
     this.currentItemsToShow = this.items.slice($event.pageIndex*$event.pageSize, $event.pageIndex*$event.pageSize + $event.pageSize);
-  }
-
-  async loadData(): Promise<void>{
-    const data = await lastValueFrom(this.http.get('https://jsonplaceholder.typicode.com/posts'));
-    console.log(data);
   }
 
 }
