@@ -142,14 +142,22 @@
                             <span style="width: 110px;">{{ item.alamat }}</span>
                         </td>
                         <td data-field="Country" class="kt-datatable__cell">
-                            <span style="width: 110px;">{{ item.status }}</span>
+                            <div class="kt-section__content kt-section__content--solid">
+                                <span style="width: 110px;" class="kt-badge kt-badge--success kt-badge--inline" *ngIf="item.status == 1">Disetujui</span>
+                                <span style="width: 110px;" class="kt-badge kt-badge--warning kt-badge--inline" *ngIf="item.status == 0">Belum Disetujui</span>
+                            </div>
+                            
                         </td>
                         <td data-field="Actions" data-autohide-disabled="false" class="kt-datatable__cell"><span
                                 style="overflow: visible; position: relative; width: 110px;">
+                                
+                                <button *ngIf="item.status == 0" title="Setujui" class="btn btn-sm btn-clean btn-icon btn-icon-md" (click)="buttonEdit(item)"> <i
+                                        class="fa fa-check-square"></i></button>
                                 <button title="Edit details" class="btn btn-sm btn-clean btn-icon btn-icon-md"
                                     (click)="buttonEdit(item)"> <i class="la la-edit"></i></button>
                                 <a title="Delete" class="btn btn-sm btn-clean btn-icon btn-icon-md"> <i
                                         class="la la-trash"></i> </a>
+                                
                             </span>
                         </td>
                     </tr>
