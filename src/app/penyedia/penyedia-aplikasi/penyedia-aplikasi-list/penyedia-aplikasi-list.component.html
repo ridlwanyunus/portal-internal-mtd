@@ -109,6 +109,9 @@
                         <th data-field="Country" class="kt-datatable__cell kt-datatable__cell--sort">
                             <span style="width: 110px;">Alamat</span>
                         </th>
+                        <th data-field="Country" class="kt-datatable__cell kt-datatable__cell--sort">
+                            <span style="width: 110px;">Status</span>
+                        </th>
                         <th data-field="Actions" data-autohide-disabled="false"
                             class="kt-datatable__cell kt-datatable__cell--sort">
                             <span style="width: 110px;">Actions</span>
@@ -138,13 +141,17 @@
                         <td data-field="Country" class="kt-datatable__cell">
                             <span style="width: 110px;">{{ item.alamat }}</span>
                         </td>
+                        <td data-field="Country" class="kt-datatable__cell">
+                            <span style="width: 110px;">{{ item.status }}</span>
+                        </td>
                         <td data-field="Actions" data-autohide-disabled="false" class="kt-datatable__cell"><span
                                 style="overflow: visible; position: relative; width: 110px;">
                                 <button title="Edit details" class="btn btn-sm btn-clean btn-icon btn-icon-md"
                                     (click)="buttonEdit(item)"> <i class="la la-edit"></i></button>
                                 <a title="Delete" class="btn btn-sm btn-clean btn-icon btn-icon-md"> <i
                                         class="la la-trash"></i> </a>
-                            </span></td>
+                            </span>
+                        </td>
                     </tr>
                 </tbody>
             </table>

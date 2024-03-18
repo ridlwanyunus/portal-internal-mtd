@@ -18,7 +18,7 @@ export class InterceptorService implements HttpInterceptor{
     return next.handle(req).pipe(
       catchError( err => {
         const error = err.message;
-        KTToastrDemo.error(error);
+
         return throwError(() => err);
       }),
       finalize(

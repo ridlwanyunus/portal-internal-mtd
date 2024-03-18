@@ -26,6 +26,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { InterceptorService } from './services/interceptor/interceptor.service';
+import { HeaderMobileComponent } from './header-mobile/header-mobile.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { InterceptorService } from './services/interceptor/interceptor.service';
     PenyediaCartridgeComponent,
     PenyediaAplikasiComponent,
     PenyediaAplikasiDetailsComponent,
-    PenyediaAplikasiListComponent
+    PenyediaAplikasiListComponent,
+    HeaderMobileComponent
   ],
   imports: [
     BrowserModule,

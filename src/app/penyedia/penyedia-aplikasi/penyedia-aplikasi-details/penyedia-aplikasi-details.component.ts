@@ -91,7 +91,7 @@ export class PenyediaAplikasiDetailsComponent implements OnInit {
       error: (err) => {
         console.log(err)
         this.status = 0;
-        KTToastrDemo.error(err.error.message);
+        KTToastrDemo.error(err.message);
       }
     })
   }
@@ -108,7 +108,7 @@ export class PenyediaAplikasiDetailsComponent implements OnInit {
         }
       },
       error: (err) => {
-        throwError(() => err);
+        KTToastrDemo.error(err.message);
       }
     });
   }
