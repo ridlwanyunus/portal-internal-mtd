@@ -4,8 +4,6 @@ import { Observable, catchError, finalize, throwError } from 'rxjs';
 import { LoadingServiceService } from '../loading/loading-service.service';
 
 
-declare var KTToastrDemo: any;
-
 @Injectable({
   providedIn: 'root'
 })
@@ -18,7 +16,6 @@ export class InterceptorService implements HttpInterceptor{
     return next.handle(req).pipe(
       catchError( err => {
         const error = err.message;
-
         return throwError(() => err);
       }),
       finalize(

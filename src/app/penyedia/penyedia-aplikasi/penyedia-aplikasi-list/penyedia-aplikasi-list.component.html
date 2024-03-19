@@ -172,8 +172,8 @@
             </table>
             <mat-paginator 
                 (page)="onPageChange($event)"
-                [length]="items.length"
-                [pageSize]="10"
+                [length]="recordsTotal"
+                [pageSize]="pageSize"
                 [pageSizeOptions]="[5, 10, 25, 100]" aria-label="select page of distributor">
             </mat-paginator>
         </div> <!--end: Datatable -->

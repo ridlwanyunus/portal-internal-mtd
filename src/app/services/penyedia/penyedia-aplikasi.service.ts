@@ -25,7 +25,7 @@ export class PenyediaAplikasiService {
 
   }
 
-  getDistributor(): Observable<unknown>{
+  getDistributor(start: number, length: number, search: string): Observable<unknown>{
     let endpoint = this.url + '/register/distributor/list';
 
     let exampleRequest = {
@@ -43,7 +43,7 @@ export class PenyediaAplikasiService {
         }
       ],
       "draw": 0,
-      "length": 100,
+      "length": length,
       "order": [
         {
           "column": 0,
@@ -52,9 +52,9 @@ export class PenyediaAplikasiService {
       ],
       "search": {
         "regex": true,
-        "value": ""
+        "value": search
       },
-      "start": 0
+      "start": start
     }
 
     return this.http.post(endpoint, exampleRequest, this.httpOptions)

@@ -14,6 +14,14 @@ export class PenyediaAplikasiListComponent {
 
   items: any = [];
   currentItemsToShow: any = [];
+  pageSize: number = 10;
+  recordsTotal: number = 0;
+
+  tableOptions: any = {
+    start: 0,
+    length: this.pageSize,
+    search: ""
+  }
 
   listStatus: any = [
     {value: 0, name: 'Belum Disetujui', icon:"fa fa-envelope"},
@@ -33,20 +41,22 @@ export class PenyediaAplikasiListComponent {
   }
 
   ngOnInit(): void {
-    this.getDistributor();
+    this.getDistributor(this.tableOptions.start, this.tableOptions.length, this.tableOptions.search);
   }
 
   ngOnDestroy(): void {
   }
 
   // Get Distributor
-  getDistributor(): void{
-    this.service.getDistributor().subscribe({
+  getDistributor(start: number, length: number, search: string): void{
+    this.service.getDistributor(start, length, search).subscribe({
       next: (data) => {
         const response = <ResponseTemplate> data;
         
         this.items = response.data.data;
         this.currentItemsToShow = this.items;
+        this.recordsTotal = response.data.recordsTotal;
+        console.log(this.currentItemsToShow);
       },
       error: (err) => {
         this.messageService.error(err.message);
@@ -73,7 +83,7 @@ export class PenyediaAplikasiListComponent {
         } else {
           this.messageService.error(response.message);
         }
-        this.getDistributor();
+        this.getDistributor(this.tableOptions.start, this.tableOptions.length, this.tableOptions.search);
         
       }, error: (err) => {
         this.messageService.error(err.message);
@@ -83,6 +93,15 @@ export class PenyediaAplikasiListComponent {
 
   // Table Pagination
   onPageChange($event: any){
-    this.currentItemsToShow = this.items.slice($event.pageIndex*$event.pageSize, $event.pageIndex*$event.pageSize + $event.pageSize);
+    this.tableOptions.start = $event.pageIndex*$event.pageSize;
+    let sisa = this.recordsTotal - this.tableOptions.start;
+    if(sisa > $event.pageSize){
+      // Jika sisa record lebih dari pageSize maka ambil pageSize
+      this.tableOptions.length = $event.pageSize;
+    } else {
+      // Jika sisa record kurang dari pageSize maka ambil sisa
+      this.tableOptions.length = this.recordsTotal - this.tableOptions.start;
+    }
+    this.getDistributor(this.tableOptions.start, this.tableOptions.length, this.tableOptions.search);
   }
 }
