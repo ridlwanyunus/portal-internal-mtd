@@ -16,7 +16,10 @@ export class PenyediaAplikasiDetailsComponent implements OnInit {
   file: any;
   channels: any = [];
   data: any;
-  
+  typeForm: string = "";
+  FORM_TYPE_ADD: string = "add";
+  FORM_TYPE_EDIT: string = "edit";
+
   constructor(
     private formBuilder: FormBuilder,
     private service: PenyediaAplikasiService,
@@ -27,8 +30,12 @@ export class PenyediaAplikasiDetailsComponent implements OnInit {
     if (navigation && navigation.extras && navigation.extras.state){
       this.data = navigation.extras.state['data'];
       this.fromEditRecord();
+      this.typeForm = this.FORM_TYPE_EDIT;
+      console.log(this.data)
     } else {
       this.fromNewRecord();
+      this.typeForm = this.FORM_TYPE_ADD;
+      console.log(this.data)
     }
   }
   ngOnInit(): void {
@@ -65,26 +72,48 @@ export class PenyediaAplikasiDetailsComponent implements OnInit {
 
   // Submit Distributor
   submitForm(): void {
-
-    const jsondata = JSON.stringify(this.distributorForm.value);
-
-    const formData = new FormData();
-    formData.append('file', this.file);
-    formData.append('jsondata', jsondata);
-    
-    this.service.addDistributor(formData).subscribe({
-      next: (data) => {
-        const response = <ResponseTemplate> data;
-        if(response.status == 1){
-          this.messageService.success(response.message);
-        } else {
-          this.messageService.error(response.message);
+    if( this.typeForm == this.FORM_TYPE_ADD ){
+      // Form Tambah Distributor
+      const jsondata = JSON.stringify(this.distributorForm.value);
+      const formData = new FormData();
+      formData.append('file', this.file);
+      formData.append('jsondata', jsondata);
+      
+      this.service.addDistributor(formData).subscribe({
+        next: (data) => {
+          const response = <ResponseTemplate> data;
+          if(response.status == 1){
+            this.messageService.success(response.message);
+          } else {
+            this.messageService.error(response.message);
+          }
+        },
+        error: (err) => {
+          this.messageService.error(err.message);
         }
-      },
-      error: (err) => {
-        this.messageService.error(err.message);
-      }
-    })
+      })
+
+    } else 
+    if( this.typeForm == this.FORM_TYPE_EDIT ){
+      // Form Edit Distributor
+      const jsondata = JSON.stringify(this.distributorForm.value);
+      let id = this.data.idDistributor;
+      let body = this.distributorForm.value;
+      this.service.updateDistributor(id, body).subscribe({
+        next: (data) => {
+          const response = <ResponseTemplate> data;
+          if(response.status == 1){
+             this.messageService.success(response.message);
+          } else {
+            this.messageService.error(response.message)
+          }
+        }, error: (err) => {
+          this.messageService.error(err.message);
+        }
+      });
+    }
+
+    
   }
 
   // Load Channel Field Distributor
