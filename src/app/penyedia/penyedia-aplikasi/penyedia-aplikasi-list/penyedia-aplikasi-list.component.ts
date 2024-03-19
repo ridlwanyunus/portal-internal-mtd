@@ -1,13 +1,9 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { PenyediaAplikasiService } from '../../../services/penyedia/penyedia-aplikasi.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { data } from 'jquery';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { ProgressSpinnerMode, MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { lastValueFrom } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { LoadingServiceService } from '../../../services/loading/loading-service.service';
+import { ShowMessageService } from '../../../services/message/show-message.service';
+import { ResponseTemplate } from '../../../model/response-template.model';
 
 @Component({
   selector: 'app-penyedia-aplikasi-list',
@@ -16,30 +12,25 @@ import { LoadingServiceService } from '../../../services/loading/loading-service
 })
 export class PenyediaAplikasiListComponent {
 
-  @Input('master') master = '';
-
-
-  message: string = "";
-
-  allPenyediaAplikasi: any = {};
   items: any = [];
-  displayedColumns: string[] = ['namaDistributor', 'npwpDistributor', 'kodeDistributor', 'alamat'];
-  dataSource: any = [];
-
   currentItemsToShow: any = [];
+
+  listStatus: any = [
+    {value: 0, name: 'Belum Disetujui', icon:"fa fa-envelope"},
+    {value: 1, name: 'Setujui', icon:"fa fa-check"},
+    {value: 2, name: 'Tolak', icon:"fa fa-times"},
+    {value: 3, name: 'Non Aktifkan', icon:"fa fa-trash-alt"},
+  ];
 
   constructor(
     private service: PenyediaAplikasiService,
     private router: Router,
-    private route: ActivatedRoute,
-    private http: HttpClient,
-    public loadingService: LoadingServiceService
+    public loadingService: LoadingServiceService,
+    public messageService: ShowMessageService
 
     ){
-      console.log('penyedia aplikasi constructor')
-  }
 
- 
+  }
 
   ngOnInit(): void {
     this.getDistributor();
@@ -48,33 +39,50 @@ export class PenyediaAplikasiListComponent {
   ngOnDestroy(): void {
   }
 
-  // Create
+  // Get Distributor
   getDistributor(): void{
     this.service.getDistributor().subscribe({
       next: (data) => {
-        this.allPenyediaAplikasi = data;
+        const response = <ResponseTemplate> data;
         
-        this.items = this.allPenyediaAplikasi.data.data;
-        this.dataSource = new MatTableDataSource(this.items);
+        this.items = response.data.data;
         this.currentItemsToShow = this.items;
       },
       error: (err) => {
-        this.message = err.message;
-        console.log(err)
+        this.messageService.error(err.message);
       } 
     });
   }
 
 
-  // Create
+  // Edit Distributor
   buttonEdit(item: any): void {
     console.log(item)
     this.router.navigate(['penyedia/penyedia-aplikasi/details'], { state: { data: item } })
   }
 
-  // Pagination
+  // Update Status Distributor
+  updateStatus(item: any, status: any){
+    console.log(item);
+    this.service.updateStatus(item.idDistributor, status.value).subscribe({
+      next: (data) => {
+        console.log(data);
+        const response = <ResponseTemplate> data;
+        if(response.status == 1){
+          this.messageService.success(response.message);
+        } else {
+          this.messageService.error(response.message);
+        }
+        this.getDistributor();
+        
+      }, error: (err) => {
+        this.messageService.error(err.message);
+      }
+    });
+  }
+
+  // Table Pagination
   onPageChange($event: any){
     this.currentItemsToShow = this.items.slice($event.pageIndex*$event.pageSize, $event.pageIndex*$event.pageSize + $event.pageSize);
   }
-
 }

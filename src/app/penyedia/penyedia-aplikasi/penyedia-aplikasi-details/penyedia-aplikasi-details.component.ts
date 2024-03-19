@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { PenyediaAplikasiService } from '../../../services/penyedia/penyedia-aplikasi.service';
 import { ResponseTemplate } from '../../../model/response-template.model';
-import { Route, Router } from '@angular/router';
-import { throwError } from 'rxjs';
+import { Router } from '@angular/router';
+import { ShowMessageService } from '../../../services/message/show-message.service';
 
-
-declare var KTToastrDemo: any;
 @Component({
   selector: 'app-penyedia-aplikasi-details',
   templateUrl: './penyedia-aplikasi-details.component.html',
@@ -16,24 +14,18 @@ export class PenyediaAplikasiDetailsComponent implements OnInit {
 
   distributorForm: any;
   file: any;
-  status: number = -1;
-  message: any;
-
   channels: any = [];
-
   data: any;
   
   constructor(
     private formBuilder: FormBuilder,
     private service: PenyediaAplikasiService,
-    private router: Router
+    private router: Router,
+    public messageService: ShowMessageService
   ){
     const navigation = this.router.getCurrentNavigation();
     if (navigation && navigation.extras && navigation.extras.state){
       this.data = navigation.extras.state['data'];
-      console.log(navigation.extras.state)
-      console.log(this.data)
-
       this.fromEditRecord();
     } else {
       this.fromNewRecord();
@@ -43,6 +35,7 @@ export class PenyediaAplikasiDetailsComponent implements OnInit {
     this.loadChannels();
   }
 
+  // Create New Distributor
   fromNewRecord(): void {
       this.distributorForm = this.formBuilder.group({
         nameDistributor: ['', Validators.required],
@@ -56,6 +49,7 @@ export class PenyediaAplikasiDetailsComponent implements OnInit {
       })
   }
 
+  // Edit Distributor
   fromEditRecord(): void {
       this.distributorForm = this.formBuilder.group({
         nameDistributor: [this.data.namaDistributor, Validators.required],
@@ -69,6 +63,7 @@ export class PenyediaAplikasiDetailsComponent implements OnInit {
       })
   }
 
+  // Submit Distributor
   submitForm(): void {
 
     const jsondata = JSON.stringify(this.distributorForm.value);
@@ -81,21 +76,18 @@ export class PenyediaAplikasiDetailsComponent implements OnInit {
       next: (data) => {
         const response = <ResponseTemplate> data;
         if(response.status == 1){
-          this.status = 1;
-          KTToastrDemo.success(response.message);
+          this.messageService.success(response.message);
         } else {
-          this.status = 0;
-          KTToastrDemo.error(response.message);
+          this.messageService.error(response.message);
         }
       },
       error: (err) => {
-        console.log(err)
-        this.status = 0;
-        KTToastrDemo.error(err.message);
+        this.messageService.error(err.message);
       }
     })
   }
 
+  // Load Channel Field Distributor
   loadChannels(){
     this.service.getChannel().subscribe({
       
@@ -104,19 +96,18 @@ export class PenyediaAplikasiDetailsComponent implements OnInit {
         if(response.status == 1){
           this.channels = response.data;
         } else {
-          KTToastrDemo.error(response.message);
+          this.messageService.error(response.message);
         }
       },
       error: (err) => {
-        KTToastrDemo.error(err.message);
+        this.messageService.error(err.message);
       }
     });
   }
 
+  // Open File Distributor
   onChangeFile(event: any){
     this.file = event.target.files[0];
-    console.log(JSON.stringify(this.distributorForm.value));
-    console.log(this.file);
   }
 
 }
