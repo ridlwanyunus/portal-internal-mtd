@@ -31,11 +31,9 @@ export class PenyediaAplikasiDetailsComponent implements OnInit {
       this.data = navigation.extras.state['data'];
       this.fromEditRecord();
       this.typeForm = this.FORM_TYPE_EDIT;
-      console.log(this.data)
     } else {
       this.fromNewRecord();
       this.typeForm = this.FORM_TYPE_ADD;
-      console.log(this.data)
     }
   }
   ngOnInit(): void {

@@ -27,6 +27,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { InterceptorService } from './services/interceptor/interceptor.service';
 import { HeaderMobileComponent } from './header-mobile/header-mobile.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar'
+import { PenyediaAplikasiPdfPreviewComponent } from './penyedia/penyedia-aplikasi/penyedia-aplikasi-pdf-preview/penyedia-aplikasi-pdf-preview.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 
 @NgModule({
@@ -45,7 +48,8 @@ import { HeaderMobileComponent } from './header-mobile/header-mobile.component';
     PenyediaAplikasiComponent,
     PenyediaAplikasiDetailsComponent,
     PenyediaAplikasiListComponent,
-    HeaderMobileComponent
+    HeaderMobileComponent,
+    PenyediaAplikasiPdfPreviewComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +61,9 @@ import { HeaderMobileComponent } from './header-mobile/header-mobile.component';
     MatSlideToggleModule,
     MatPaginatorModule,
     MatTableModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    PdfViewerModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass:InterceptorService, multi: true },

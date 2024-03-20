@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <!--begin::Portlet-->
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">
+                        Preview PDF
+                    </h3>
+                </div>
+                <div class="kt-portlet__head-toolbar">
+                    <div class="kt-portlet__head-wrapper">
+                        <div class="kt-portlet__head-actions">
+                            &nbsp;
+                            <a routerLink="/penyedia/penyedia-aplikasi/list"
+                                class="btn btn-brand btn-elevate btn-icon-sm">
+                                <i class="flaticon2-back"></i>
+                                Tutup
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                
+                <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group" role="group" aria-label="First group">
+                    </div>
+                    <div class="btn-group">
+                        <div class="btn-group" role="group" aria-label="First group">
+                            <button type="button" class="btn btn-primary" (click)="downloadFile()"><i class="fa fa-print"></i> Print</button>
+                        </div>
+                    </div>
+                </div>
+
+                <pdf-viewer 
+                    [src]="pdfSrc"
+                    [render-text]="false"
+                    [original-size]="true"
+                    [fit-to-page]="true"
+                    (on-progress)="onProgress($event)"
+                    (after-load-complete)="loadComplete($event)"
+                    style="display: block; height: 400px;"
+                >
+
+                </pdf-viewer>
+                <!-- begin: Loading -->
+                <div *ngIf="loadingService.isLoading | async" id="loading">
+                    <mat-spinner diameter="80" mode="indeterminate" strokeWidth="8"></mat-spinner>
+
+                </div>
+                <!-- end: Loading -->
+            </div>
+        </div>
+        
+    </div>
+</div>

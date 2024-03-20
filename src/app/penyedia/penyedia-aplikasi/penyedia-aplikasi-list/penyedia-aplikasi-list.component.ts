@@ -16,11 +16,12 @@ export class PenyediaAplikasiListComponent {
   currentItemsToShow: any = [];
   pageSize: number = 10;
   recordsTotal: number = 0;
+  search: string = "";
 
   tableOptions: any = {
     start: 0,
     length: this.pageSize,
-    search: ""
+    search: this.search
   }
 
   listStatus: any = [
@@ -63,12 +64,6 @@ export class PenyediaAplikasiListComponent {
     });
   }
 
-
-  // Edit Distributor
-  buttonEdit(item: any): void {
-    this.router.navigate(['penyedia/penyedia-aplikasi/details'], { state: { data: item } })
-  }
-
   // Update Status Distributor
   updateStatus(item: any, status: any){
     this.service.updateStatus(item.idDistributor, status.value).subscribe({
@@ -92,5 +87,22 @@ export class PenyediaAplikasiListComponent {
     this.tableOptions.start = $event.pageIndex*$event.pageSize;
     this.tableOptions.length = $event.pageSize;
     this.getDistributor(this.tableOptions.start, this.tableOptions.length, this.tableOptions.search);
+  }
+
+  // ACTION BUTTON
+
+  // Edit Distributor
+  buttonEdit(item: any): void {
+    this.router.navigate(['penyedia/penyedia-aplikasi/details'], { state: { data: item } })
+  }
+
+  // Preview Pdf
+  previewPdf(item: any): void {
+    this.router.navigate(['penyedia/penyedia-aplikasi/pdf-preview'], {state: {data: item}})
+  }
+
+  // Search by Nama or NPWP by enter
+  filterSearch(): void{
+    this.getDistributor(this.tableOptions.start, this.tableOptions.length, this.search);
   }
 }
