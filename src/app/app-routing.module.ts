@@ -12,6 +12,7 @@ import { PenyediaAplikasiDetailsComponent } from './penyedia/penyedia-aplikasi/p
 import { PenyediaAplikasiListComponent } from './penyedia/penyedia-aplikasi/penyedia-aplikasi-list/penyedia-aplikasi-list.component';
 import { PrinterAddComponent } from './penyedia/penyedia-printer/penyedia-printer-add/printer-add.component';
 import { PenyediaPrinterListComponent } from './penyedia/penyedia-printer/penyedia-printer-list/penyedia-printer-list.component';
+import { PenyediaAplikasiPdfPreviewComponent } from './penyedia/penyedia-aplikasi/penyedia-aplikasi-pdf-preview/penyedia-aplikasi-pdf-preview.component';
 
 const routes: Routes = [
   { path: '', component: PenyediaAplikasiComponent },
@@ -24,7 +25,8 @@ const routes: Routes = [
     component: PenyediaAplikasiComponent,
     children: [
       { path: 'list', component: PenyediaAplikasiListComponent },
-      { path: 'details', component: PenyediaAplikasiDetailsComponent }
+      { path: 'details', component: PenyediaAplikasiDetailsComponent },
+      { path: 'pdf-preview', component: PenyediaAplikasiPdfPreviewComponent }
     ]
   },
   { path: 'penyedia/penyedia-printer', component: PenyediaPrinterComponent,

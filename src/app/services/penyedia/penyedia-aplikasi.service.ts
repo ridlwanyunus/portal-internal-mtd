@@ -15,16 +15,9 @@ export class PenyediaAplikasiService {
 
   constructor(private http: HttpClient) { }
 
-  addDistributor(formData: FormData): Observable<unknown>{
-    let endpoint = this.url + '/register/distributor/add';
-    
-    return this.http.post<ResponseTemplate>(endpoint, formData).pipe(catchError((err: HttpErrorResponse) => {
-        debugger;
-        return throwError(()=>err) ;
-    }));
 
-  }
 
+  // Get Distributor
   getDistributor(start: number, length: number, search: string): Observable<unknown>{
     let endpoint = this.url + '/register/distributor/list';
 
@@ -61,6 +54,27 @@ export class PenyediaAplikasiService {
       .pipe(catchError((err: HttpErrorResponse) => {
         return throwError(() => err);
       }))
+  }
+
+  // Create Distributor
+  addDistributor(formData: FormData): Observable<unknown>{
+    let endpoint = this.url + '/register/distributor/add';
+    return this.http.post<ResponseTemplate>(endpoint, formData).pipe(catchError((err: HttpErrorResponse) => {
+        debugger;
+        return throwError(()=>err) ;
+    }));
+  }
+
+  // Update Distributor
+  updateDistributor(id: string, body: any): Observable<unknown>{
+    let endpoint = this.url + '/register/distributor/edit';
+
+    let queryParam = new HttpParams();
+    queryParam = queryParam.append("id", id);
+
+    return this.http.put<ResponseTemplate>(endpoint, body, { params: queryParam }).pipe(catchError((err: HttpErrorResponse) => {
+        return throwError(()=>err) ;
+    }));
   }
 
   getChannel(): Observable<unknown>{

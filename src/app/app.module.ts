@@ -29,6 +29,9 @@ import { InterceptorService } from './services/interceptor/interceptor.service';
 import { HeaderMobileComponent } from './header-mobile/header-mobile.component';
 import { PrinterAddComponent } from './penyedia/penyedia-printer/penyedia-printer-add/printer-add.component';
 import { PenyediaPrinterListComponent } from './penyedia/penyedia-printer/penyedia-printer-list/penyedia-printer-list.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar'
+import { PenyediaAplikasiPdfPreviewComponent } from './penyedia/penyedia-aplikasi/penyedia-aplikasi-pdf-preview/penyedia-aplikasi-pdf-preview.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 
 @NgModule({
@@ -49,7 +52,8 @@ import { PenyediaPrinterListComponent } from './penyedia/penyedia-printer/penyed
     PenyediaAplikasiListComponent,
     HeaderMobileComponent,
     PrinterAddComponent,
-    PenyediaPrinterListComponent
+    PenyediaPrinterListComponent,
+    PenyediaAplikasiPdfPreviewComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +65,9 @@ import { PenyediaPrinterListComponent } from './penyedia/penyedia-printer/penyed
     MatSlideToggleModule,
     MatPaginatorModule,
     MatTableModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    PdfViewerModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass:InterceptorService, multi: true },

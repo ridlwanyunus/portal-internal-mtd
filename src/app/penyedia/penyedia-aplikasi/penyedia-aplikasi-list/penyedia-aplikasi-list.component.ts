@@ -16,11 +16,12 @@ export class PenyediaAplikasiListComponent {
   currentItemsToShow: any = [];
   pageSize: number = 10;
   recordsTotal: number = 0;
+  search: string = "";
 
   tableOptions: any = {
     start: 0,
     length: this.pageSize,
-    search: ""
+    search: this.search
   }
 
   listStatus: any = [
@@ -56,7 +57,6 @@ export class PenyediaAplikasiListComponent {
         this.items = response.data.data;
         this.currentItemsToShow = this.items;
         this.recordsTotal = response.data.recordsTotal;
-        console.log(this.currentItemsToShow);
       },
       error: (err) => {
         this.messageService.error(err.message);
@@ -64,19 +64,10 @@ export class PenyediaAplikasiListComponent {
     });
   }
 
-
-  // Edit Distributor
-  buttonEdit(item: any): void {
-    console.log(item)
-    this.router.navigate(['penyedia/penyedia-aplikasi/details'], { state: { data: item } })
-  }
-
   // Update Status Distributor
   updateStatus(item: any, status: any){
-    console.log(item);
     this.service.updateStatus(item.idDistributor, status.value).subscribe({
       next: (data) => {
-        console.log(data);
         const response = <ResponseTemplate> data;
         if(response.status == 1){
           this.messageService.success(response.message);
@@ -94,14 +85,24 @@ export class PenyediaAplikasiListComponent {
   // Table Pagination
   onPageChange($event: any){
     this.tableOptions.start = $event.pageIndex*$event.pageSize;
-    let sisa = this.recordsTotal - this.tableOptions.start;
-    if(sisa > $event.pageSize){
-      // Jika sisa record lebih dari pageSize maka ambil pageSize
-      this.tableOptions.length = $event.pageSize;
-    } else {
-      // Jika sisa record kurang dari pageSize maka ambil sisa
-      this.tableOptions.length = this.recordsTotal - this.tableOptions.start;
-    }
+    this.tableOptions.length = $event.pageSize;
     this.getDistributor(this.tableOptions.start, this.tableOptions.length, this.tableOptions.search);
+  }
+
+  // ACTION BUTTON
+
+  // Edit Distributor
+  buttonEdit(item: any): void {
+    this.router.navigate(['penyedia/penyedia-aplikasi/details'], { state: { data: item } })
+  }
+
+  // Preview Pdf
+  previewPdf(item: any): void {
+    this.router.navigate(['penyedia/penyedia-aplikasi/pdf-preview'], {state: {data: item}})
+  }
+
+  // Search by Nama or NPWP by enter
+  filterSearch(): void{
+    this.getDistributor(this.tableOptions.start, this.tableOptions.length, this.search);
   }
 }
