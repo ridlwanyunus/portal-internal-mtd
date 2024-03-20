@@ -27,6 +27,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { InterceptorService } from './services/interceptor/interceptor.service';
 import { HeaderMobileComponent } from './header-mobile/header-mobile.component';
+import { PrinterAddComponent } from './penyedia/penyedia-printer/penyedia-printer-add/printer-add.component';
+import { PenyediaPrinterListComponent } from './penyedia/penyedia-printer/penyedia-printer-list/penyedia-printer-list.component';
 
 
 @NgModule({
@@ -45,7 +47,9 @@ import { HeaderMobileComponent } from './header-mobile/header-mobile.component';
     PenyediaAplikasiComponent,
     PenyediaAplikasiDetailsComponent,
     PenyediaAplikasiListComponent,
-    HeaderMobileComponent
+    HeaderMobileComponent,
+    PrinterAddComponent,
+    PenyediaPrinterListComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <!--begin::Portlet-->
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">
+                        Form Penyedia Aplikasi
+                    </h3>
+                </div>
+                <div class="kt-portlet__head-toolbar">
+                    <div class="kt-portlet__head-wrapper">
+                        <div class="kt-portlet__head-actions">
+                            &nbsp;
+                            <a routerLink="/penyedia/penyedia-printer/list" class="btn btn-brand btn-elevate btn-icon-sm">
+                                <i class="flaticon2-back"></i>
+                                Tutup
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--begin::Form-->
+            <form [formGroup]="printerForm" (ngSubmit)="submitForm()" class="kt-form">
+                <div class="kt-portlet__body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>NPWP</label>
+                                <input type="text" class="form-control" aria-describedby="npwpHelp" id="npwpDistributor"
+                                    formControlName="npwpDistributor" placeholder="Enter NPWP">
+                            </div>
+                            <div class="form-group">
+                                <label>Brand</label>
+                                <input type="text" class="form-control" aria-describedby="brandHelp" id="brand"
+                                    formControlName="brand" placeholder="Enter Brand">
+                            </div>
+                            <div class="form-group">
+                                <label>Type</label>
+                                <input type="text" class="form-control" aria-describedby="type" id="type" formControlName="type"
+                                    placeholder="Enter type">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kt-portlet__foot">
+                    <div class="kt-form__actions">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="reset" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </div>
+            </form>
+            <!--end::Form-->
+        </div>
+        <!--end::Portlet-->
+    </div>
+</div>

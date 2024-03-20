@@ -10,6 +10,8 @@ import { PenyediaCartridgeComponent } from './penyedia/penyedia-cartridge/penyed
 import { PenyediaAplikasiComponent } from './penyedia/penyedia-aplikasi/penyedia-aplikasi.component';
 import { PenyediaAplikasiDetailsComponent } from './penyedia/penyedia-aplikasi/penyedia-aplikasi-details/penyedia-aplikasi-details.component';
 import { PenyediaAplikasiListComponent } from './penyedia/penyedia-aplikasi/penyedia-aplikasi-list/penyedia-aplikasi-list.component';
+import { PrinterAddComponent } from './penyedia/penyedia-printer/penyedia-printer-add/printer-add.component';
+import { PenyediaPrinterListComponent } from './penyedia/penyedia-printer/penyedia-printer-list/penyedia-printer-list.component';
 
 const routes: Routes = [
   { path: '', component: PenyediaAplikasiComponent },
@@ -25,7 +27,12 @@ const routes: Routes = [
       { path: 'details', component: PenyediaAplikasiDetailsComponent }
     ]
   },
-  { path: 'penyedia/penyedia-printer', component: PenyediaPrinterComponent },
+  { path: 'penyedia/penyedia-printer', component: PenyediaPrinterComponent,
+    children: [
+      { path: 'list', component: PenyediaPrinterListComponent },
+      { path: 'add', component: PrinterAddComponent }
+    ]
+  },
   { path: 'penyedia/penyedia-cartridge', component: PenyediaCartridgeComponent }
 
 ];
