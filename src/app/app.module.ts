@@ -34,6 +34,8 @@ import { PenyediaAplikasiPdfPreviewComponent } from './penyedia/penyedia-aplikas
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { PenyediaCartridgeListComponent } from './penyedia/penyedia-cartridge/penyedia-cartridge-list/penyedia-cartridge-list.component';
+import { PenyediaPrinterCartridgeComponent } from './penyedia/penyedia-printer-cartridge/penyedia-printer-cartridge.component';
+import { PenyediaPrinterCartridgeListComponent } from './penyedia/penyedia-printer-cartridge/penyedia-printer-cartridge-list/penyedia-printer-cartridge-list.component';
 
 
 @NgModule({
@@ -55,7 +57,9 @@ import { PenyediaCartridgeListComponent } from './penyedia/penyedia-cartridge/pe
     HeaderMobileComponent,
     PenyediaPrinterListComponent,
     PenyediaAplikasiPdfPreviewComponent,
-    PenyediaCartridgeListComponent
+    PenyediaCartridgeListComponent,
+    PenyediaPrinterCartridgeComponent,
+    PenyediaPrinterCartridgeListComponent
   ],
   imports: [
     BrowserModule,

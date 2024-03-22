@@ -69,12 +69,14 @@ export class CartridgeServiceListService {
     }));
   }
 
-  updateStatusCartridge(id: string, status: string): Observable<unknown>{
+  updateStatusCartridge(id: string, noSertfikasi: string, status: string, keterangan: string): Observable<unknown>{
     let endpoint = this.url + '/cartridgecertified/updatedstatus';
     let body = {};
     let queryParam = new HttpParams();
     queryParam = queryParam.append("id", id);
+    queryParam = queryParam.append("noCertified", noSertfikasi);
     queryParam = queryParam.append("status", status);
+    queryParam = queryParam.append("keterangan", keterangan);
 
     return this.http.put<ResponseTemplate>(endpoint, body, { params: queryParam }).pipe(catchError((err: HttpErrorResponse) => {
       return throwError(() => err)

@@ -5,7 +5,7 @@
                 <i class="kt-font-brand flaticon2-line-chart"></i>
             </span>
             <h3 class="kt-portlet__head-title">
-                Daftar Penyedia Printer
+                Daftar Penyedia Printer Cartridge Verify
                 <small></small>
             </h3>
         </div>
@@ -13,11 +13,7 @@
             <div class="kt-portlet__head-wrapper">
                 <div class="kt-portlet__head-actions">
                     &nbsp;
-                    <!-- <a routerLink="/penyedia/penyedia-printer/add" class="btn btn-brand btn-elevate btn-icon-sm">
-                        <i class="la la-plus"></i>
-                        New Record Printer
-                    </a> -->
-                    <button type="button" class="btn btn-primary" (click)="openModalPrinterAdd()"> <i class="la la-plus"></i>Add Printer</button>
+                    <button type="button" class="btn btn-primary" (click)="openModalPrinterCatridgeAdd()"> <i class="la la-plus"></i>Add Printer Cartridge</button>
                 </div>
             </div>
         </div>
@@ -31,7 +27,7 @@
                         <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
                             <div class="kt-input-icon kt-input-icon--left">
                                 <input type="text" class="form-control" placeholder="Search..." id="generalSearch"
-                                (change)="onChangePrinter($event)" />
+                                (change)="onChangePrinterCatridge($event)" />
                                 <span class="kt-input-icon__icon kt-input-icon__icon--left">
                                     <span><i class="la la-search"></i></span>
                                 </span>
@@ -84,9 +80,9 @@
     </div>
     <div class="kt-portlet__body kt-portlet__body--fit">
         <!--begin: Datatable -->
-        <div class="kt-datatable kt-datatable--default kt-datatable--brand kt-datatable--loaded" id="data-printer"
+        <div class="kt-datatable kt-datatable--default kt-datatable--brand kt-datatable--loaded" id="data-printer-cartridge"
             style="">
-            <table class="kt-datatable__table" style="display: block;" id="table-printer"> 
+            <table class="kt-datatable__table" style="display: block;" id="table-printer-cartridge"> 
                 <thead class="kt-datatable__head">
                     <tr class="kt-datatable__row" style="left: 0px;">
                         <th data-field="RecordID"
@@ -98,7 +94,7 @@
                             </span>
                         </th>
                         <th data-field="Country" class="kt-datatable__cell kt-datatable__cell--sort">
-                            <span style="width: 110px;">Id Printer</span>
+                            <span style="width: 110px;">Id Printer Cartridge</span>
                         </th>
 						<th data-field="Country" class="kt-datatable__cell kt-datatable__cell--sort">
                             <span style="width: 110px;">Nama Penyedia</span>
@@ -136,7 +132,7 @@
                             </span>
                         </td>
                         <td data-field="OrderID" class="kt-datatable__cell">
-                            <span style="width: 110px;">{{ item.idPrinter }}</span>
+                            <span style="width: 110px;">{{ item.idPrinterCartridge }}</span>
                         </td>
 						<td data-field="Country" class="kt-datatable__cell">
                             <span style="width: 110px;">{{ item.nama }}</span>
@@ -145,7 +141,7 @@
                             <span style="width: 110px;">{{ item.npwp }}</span>
                         </td>
                         <td data-field="Country" class="kt-datatable__cell">
-                            <span style="width: 110px;">{{ item.brand }}</span>
+                            <span style="width: 110px;">{{ item.merek }}</span>
                         </td>
                         <td data-field="Country" class="kt-datatable__cell">
                             <span style="width: 110px;">{{ item.type }}</span>
@@ -163,19 +159,6 @@
                         </td>
                         <td data-field="Actions" data-autohide-disabled="false" class="kt-datatable__cell"><span
                                 style="overflow: visible; position: relative; width: 110px;">
-                                
-                                <!-- <button *ngIf="item.status == 0" title="Setujui" class="btn btn-sm btn-clean btn-icon btn-icon-md" (click)="buttonEdit(item)"> <i
-                                        class="fa fa-check-square"></i></button>
-                                <button title="Edit details" class="btn btn-sm btn-clean btn-icon btn-icon-md"
-                                    (click)="buttonEdit(item)"> <i class="la la-edit"></i></button> -->
-                                <!-- <div class="dropdown">
-                                    <a title="Set Aksi" href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown">
-                                        <i class="la la-cog"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <button *ngFor="let status of listStatus" class="dropdown-item" (click)="updateStatus(item, status)"><i [ngClass]="status.icon"></i>{{ status.name }}</button>
-                                    </div>
-                                </div> -->
                                 <a title="Approved" class="btn btn-sm btn-clean btn-icon btn-icon-md" (click)="openModalApproveAdd(item)"> <i
                                         class="la la-cog"></i> </a>
                                 
@@ -190,8 +173,8 @@
                 [pageSize]="pageSize"
                 [pageSizeOptions]="[5, 10, 25, 100]" aria-label="select page of printer">
             </mat-paginator>
-        </div> <!--end: Datatable -->
-
+        </div> 
+        <!--end: Datatable -->
         <!--begin: Datatable -->
         <div *ngIf="loadingService.isLoading | async" id="loading">
             <mat-spinner diameter="80" mode="indeterminate" strokeWidth="8" ></mat-spinner>
@@ -201,39 +184,40 @@
     </div>
     
     <!--Modal Printer-->
-    <div class="modal fade show" id="modal_printer_add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-modal="true" style="display: none; padding-right: 17px;">
+    <div class="modal fade show" id="modal_printer_cartridge_add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-modal="true" style="display: none; padding-right: 17px;">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">New Printer</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModalPrinterAdd()">
+                    <h5 class="modal-title" id="exampleModalLabel">New Printer Cartridge Verify</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModalPrinterCatridgeAdd()">
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form [formGroup]="printerAddForm" (ngSubmit)="submitPrinter()">
+                    <form [formGroup]="printerCartridgeAddForm" (ngSubmit)="submitCartridge()">
                         <div class="form-group">
                             <label for="npwp-name" class="form-control-label">NPWP:</label>
-                            <ng-select class="custom" style="padding-bottom: 0px" id="npwpDistributorAdd" formControlName="npwpDistributorAdd" placeholder="Select Distributor">
+                            <ng-select class="custom" style="padding-bottom: 0px" id="npwpDistributorAdd" formControlName="npwpDistributorAdd" placeholder="Select Distributor" (change)="onChangeNpwp()">
                                 <ng-option *ngFor="let dtDistributor of dataDistributors" [value]="dtDistributor.id">{{dtDistributor.name}}</ng-option>
                             </ng-select>
                         </div>
                         <div class="form-group">
-                            <label for="brand-text" class="form-control-label">Brand:</label>
-                            <input type="text" class="form-control" aria-describedby="brandHelp" id="brandAdd"
-                                    formControlName="brandAdd" placeholder="Enter Brand">
+                            <label for="npwp-name" class="form-control-label">Printer:</label>
+                            <ng-select class="custom" style="padding-bottom: 0px" id="printerAdd" formControlName="printerAdd" placeholder="Select Printer">
+                                <ng-option *ngFor="let dtPrinter of dataPrinters" [value]="dtPrinter.id">{{dtPrinter.name}}</ng-option>
+                            </ng-select>
                         </div>
                         <div class="form-group">
-                            <label for="type-text" class="form-control-label">Type:</label>
-                            <input type="text" class="form-control" aria-describedby="typeHelp" id="typeAdd"
-                                    formControlName="typeAdd" placeholder="Enter Type">
+                            <label for="npwp-name" class="form-control-label">Cartrdige:</label>
+                            <ng-select class="custom" style="padding-bottom: 0px" id="cartrdigeAdd" formControlName="cartrdigeAdd" placeholder="Select Cartridge">
+                                <ng-option *ngFor="let dtCartridge of dataCartridges" [value]="dtCartridge.id">{{dtCartridge.name}}</ng-option>
+                            </ng-select>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModalPrinterAdd()">Close</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModalPrinterCatridgeAdd()">Close</button>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
-                </div>
-                
+                </div>                
             </div>
         </div>
     </div>

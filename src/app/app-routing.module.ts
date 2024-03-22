@@ -13,6 +13,8 @@ import { PenyediaAplikasiListComponent } from './penyedia/penyedia-aplikasi/peny
 import { PenyediaPrinterListComponent } from './penyedia/penyedia-printer/penyedia-printer-list/penyedia-printer-list.component';
 import { PenyediaAplikasiPdfPreviewComponent } from './penyedia/penyedia-aplikasi/penyedia-aplikasi-pdf-preview/penyedia-aplikasi-pdf-preview.component';
 import { PenyediaCartridgeListComponent } from './penyedia/penyedia-cartridge/penyedia-cartridge-list/penyedia-cartridge-list.component';
+import { PenyediaPrinterCartridgeComponent } from './penyedia/penyedia-printer-cartridge/penyedia-printer-cartridge.component';
+import { PenyediaPrinterCartridgeListComponent } from './penyedia/penyedia-printer-cartridge/penyedia-printer-cartridge-list/penyedia-printer-cartridge-list.component';
 
 const routes: Routes = [
   { path: '', component: PenyediaAplikasiComponent },
@@ -40,8 +42,13 @@ const routes: Routes = [
       { path: 'list', component: PenyediaCartridgeListComponent },
       // { path: 'add', component: PrinterAddComponent }
     ]
+  },
+  { path: 'penyedia/penyedia-printer-cartridge-verify', component: PenyediaPrinterCartridgeComponent,
+    children: [
+      { path: 'list', component: PenyediaPrinterCartridgeListComponent },
+      // { path: 'add', component: PrinterAddComponent }
+    ]
   }
-
 ];
 
 @NgModule({

@@ -6,15 +6,15 @@ import { ResponseTemplate } from '../../../model/response-template.model';
 @Injectable({
   providedIn: 'root'
 })
-export class PrinterServiceListService {
+export class PrinterCartridgeVerifyServiceService {
 
   httpOptions = {}
   url = 'http://localhost:8082';//'http://36.94.117.75:8080';
 
   constructor(private http: HttpClient) { }
 
-  addPrinter(request: any): Observable<unknown>{
-    let endpoint = this.url + '/printercertified/add';
+  addPrinterCartridge(request: any): Observable<unknown>{
+    let endpoint = this.url + '/printercartridge/add';
     console.log(request);
     return this.http.post<ResponseTemplate>(endpoint, request , {}).pipe(catchError((err: HttpErrorResponse) => {
         //debugger;
@@ -23,9 +23,9 @@ export class PrinterServiceListService {
 
   }
 
-  getListPrinter(start: number, length: number, search: string): Observable<unknown>{
+  getListPrinterCartridge(start: number, length: number, search: string): Observable<unknown>{
     // let endpoint = this.url + '/register/printercertified/list';
-    let endpoint = this.url + '/printercertified/list';
+    let endpoint = this.url + '/printercartridge/list';
 
     let exampleRequest = {
       "columns": [
@@ -62,15 +62,39 @@ export class PrinterServiceListService {
       }))
   }
 
-  getListDataDitributor(): Observable<unknown>{
+  getListDataDistributor(): Observable<unknown>{
     let endpoint = this.url + '/distributor/listKdDistributor';
     return this.http.get<ResponseTemplate>(endpoint).pipe(catchError((err: HttpErrorResponse) => {
       return throwError(() => err);
     }));
   }
 
-  updateStatusPrinter(id: string, noSertfikasi: string, status: string, keterangan: string): Observable<unknown>{
-    let endpoint = this.url + '/printercertified/updatedstatus';
+  getListDataPrinterActive(npwp: string): Observable<unknown>{
+    let endpoint = this.url + '/printercertified/list/status';
+    let body = {};
+    let queryParam = new HttpParams();
+    queryParam = queryParam.append("npwp", npwp);
+    queryParam = queryParam.append("status", 1);
+
+    return this.http.post<ResponseTemplate>(endpoint, body, { params: queryParam }).pipe(catchError((err: HttpErrorResponse) => {
+      return throwError(() => err);
+    }));
+  }
+
+  getListDataCartridgeActive(npwp: string): Observable<unknown>{
+    let endpoint = this.url + '/cartridgecertified/list/status';
+    let body = {};
+    let queryParam = new HttpParams();
+    queryParam = queryParam.append("npwp", npwp);
+    queryParam = queryParam.append("status", 1);
+
+    return this.http.post<ResponseTemplate>(endpoint, body, { params: queryParam }).pipe(catchError((err: HttpErrorResponse) => {
+      return throwError(() => err);
+    }));
+  }
+
+  updateStatusPrinterCartridge(id: string, noSertfikasi: string, status: string, keterangan: string): Observable<unknown>{
+    let endpoint = this.url + '/cartridgecertified/updatedstatus';
     let body = {};
     let queryParam = new HttpParams();
     queryParam = queryParam.append("id", id);
