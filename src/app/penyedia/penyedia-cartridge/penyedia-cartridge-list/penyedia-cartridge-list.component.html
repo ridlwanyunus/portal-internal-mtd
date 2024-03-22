@@ -5,7 +5,7 @@
                 <i class="kt-font-brand flaticon2-line-chart"></i>
             </span>
             <h3 class="kt-portlet__head-title">
-                Daftar Penyedia Printer
+                Daftar Penyedia Cartridge
                 <small></small>
             </h3>
         </div>
@@ -13,11 +13,11 @@
             <div class="kt-portlet__head-wrapper">
                 <div class="kt-portlet__head-actions">
                     &nbsp;
-                    <!-- <a routerLink="/penyedia/penyedia-printer/add" class="btn btn-brand btn-elevate btn-icon-sm">
+                    <!-- <a routerLink="/penyedia/penyedia-cartridge/add" class="btn btn-brand btn-elevate btn-icon-sm">
                         <i class="la la-plus"></i>
-                        New Record Printer
+                        New Record Cartridge
                     </a> -->
-                    <button type="button" class="btn btn-primary" (click)="openModalPrinterAdd()"> <i class="la la-plus"></i>Add Printer</button>
+                    <button type="button" class="btn btn-primary" (click)="openModalCartridgeAdd()"> <i class="la la-plus"></i>Add Cartridge</button>
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
                         <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
                             <div class="kt-input-icon kt-input-icon--left">
                                 <input type="text" class="form-control" placeholder="Search..." id="generalSearch"
-                                (change)="onChangePrinter($event)" />
+                                (change)="onChangeCartridge($event)" />
                                 <span class="kt-input-icon__icon kt-input-icon__icon--left">
                                     <span><i class="la la-search"></i></span>
                                 </span>
@@ -98,7 +98,7 @@
                             </span>
                         </th>
                         <th data-field="Country" class="kt-datatable__cell kt-datatable__cell--sort">
-                            <span style="width: 110px;">Id Printer</span>
+                            <span style="width: 110px;">Id Cartridge</span>
                         </th>
 						<th data-field="Country" class="kt-datatable__cell kt-datatable__cell--sort">
                             <span style="width: 110px;">Nama Penyedia</span>
@@ -107,10 +107,7 @@
                             <span style="width: 110px;">NPWP Penyedia</span>
                         </th>
                         <th data-field="Country" class="kt-datatable__cell kt-datatable__cell--sort">
-                            <span style="width: 110px;">Merek Printer</span>
-                        </th>
-                        <th data-field="Country" class="kt-datatable__cell kt-datatable__cell--sort">
-                            <span style="width: 110px;">Type Printer</span>
+                            <span style="width: 110px;">Type Cartridge</span>
                         </th>
 						<th data-field="Country" class="kt-datatable__cell kt-datatable__cell--sort">
                             <span style="width: 110px;">Creation Date</span>
@@ -136,16 +133,13 @@
                             </span>
                         </td>
                         <td data-field="OrderID" class="kt-datatable__cell">
-                            <span style="width: 110px;">{{ item.idPrinter }}</span>
+                            <span style="width: 110px;">{{ item.idCartridge }}</span>
                         </td>
 						<td data-field="Country" class="kt-datatable__cell">
                             <span style="width: 110px;">{{ item.nama }}</span>
                         </td>
 						<td data-field="Country" class="kt-datatable__cell">
                             <span style="width: 110px;">{{ item.npwp }}</span>
-                        </td>
-                        <td data-field="Country" class="kt-datatable__cell">
-                            <span style="width: 110px;">{{ item.brand }}</span>
                         </td>
                         <td data-field="Country" class="kt-datatable__cell">
                             <span style="width: 110px;">{{ item.type }}</span>
@@ -200,17 +194,17 @@
         <!-- <router-outlet></router-outlet> -->
     </div>
     
-    <!--Modal Printer-->
-    <div class="modal fade show" id="modal_printer_add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-modal="true" style="display: none; padding-right: 17px;">
+    <!--Modal Cartridge-->
+    <div class="modal fade show" id="modal_cartridge_add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-modal="true" style="display: none; padding-right: 17px;">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">New Printer</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModalPrinterAdd()">
+                    <h5 class="modal-title" id="exampleModalLabel">New Cartridge</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModalCartridgeAdd()">
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form [formGroup]="printerAddForm" (ngSubmit)="submitPrinter()">
+                    <form [formGroup]="cartridgeAddForm" (ngSubmit)="submitCartridge()">
                         <div class="form-group">
                             <label for="npwp-name" class="form-control-label">NPWP:</label>
                             <!-- <select class="form-control m-select2" id="npwpDistributorAdd" formControlName="npwpDistributorAdd" placeholder="Select Distributor">
@@ -221,17 +215,12 @@
                             </ng-select>
                         </div>
                         <div class="form-group">
-                            <label for="brand-text" class="form-control-label">Brand:</label>
-                            <input type="text" class="form-control" aria-describedby="brandHelp" id="brandAdd"
-                                    formControlName="brandAdd" placeholder="Enter Brand">
-                        </div>
-                        <div class="form-group">
                             <label for="type-text" class="form-control-label">Type:</label>
                             <input type="text" class="form-control" aria-describedby="typeHelp" id="typeAdd"
                                     formControlName="typeAdd" placeholder="Enter Type">
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModalPrinterAdd()">Close</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModalCartridgeAdd()">Close</button>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </form>

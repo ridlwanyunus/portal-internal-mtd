@@ -10,9 +10,9 @@ import { PenyediaCartridgeComponent } from './penyedia/penyedia-cartridge/penyed
 import { PenyediaAplikasiComponent } from './penyedia/penyedia-aplikasi/penyedia-aplikasi.component';
 import { PenyediaAplikasiDetailsComponent } from './penyedia/penyedia-aplikasi/penyedia-aplikasi-details/penyedia-aplikasi-details.component';
 import { PenyediaAplikasiListComponent } from './penyedia/penyedia-aplikasi/penyedia-aplikasi-list/penyedia-aplikasi-list.component';
-import { PrinterAddComponent } from './penyedia/penyedia-printer/penyedia-printer-add/printer-add.component';
 import { PenyediaPrinterListComponent } from './penyedia/penyedia-printer/penyedia-printer-list/penyedia-printer-list.component';
 import { PenyediaAplikasiPdfPreviewComponent } from './penyedia/penyedia-aplikasi/penyedia-aplikasi-pdf-preview/penyedia-aplikasi-pdf-preview.component';
+import { PenyediaCartridgeListComponent } from './penyedia/penyedia-cartridge/penyedia-cartridge-list/penyedia-cartridge-list.component';
 
 const routes: Routes = [
   { path: '', component: PenyediaAplikasiComponent },
@@ -32,10 +32,15 @@ const routes: Routes = [
   { path: 'penyedia/penyedia-printer', component: PenyediaPrinterComponent,
     children: [
       { path: 'list', component: PenyediaPrinterListComponent },
-      { path: 'add', component: PrinterAddComponent }
+      // { path: 'add', component: PrinterAddComponent }
     ]
   },
-  { path: 'penyedia/penyedia-cartridge', component: PenyediaCartridgeComponent }
+  { path: 'penyedia/penyedia-cartridge', component: PenyediaCartridgeComponent,
+    children: [
+      { path: 'list', component: PenyediaCartridgeListComponent },
+      // { path: 'add', component: PrinterAddComponent }
+    ]
+  }
 
 ];
 

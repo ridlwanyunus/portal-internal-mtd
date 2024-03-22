@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { PrinterServiceListService } from '../../../services/penyedia/printer/printer-service-list.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { LoadingServiceService } from '../../../services/loading/loading-service.service';
 import { ShowMessageService } from '../../../services/message/show-message.service';
-import { ResponseTemplate } from '../../../model/response-template.model';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ResponseTemplate } from '../../../model/response-template.model';
+import { CartridgeServiceListService } from '../../../services/penyedia/cartridge/cartridge-service-list.service';
 
 @Component({
-  selector: 'app-penyedia-printer-list',
-  templateUrl: './penyedia-printer-list.component.html',
-  styleUrl: './penyedia-printer-list.component.css'
+  selector: 'app-penyedia-cartridge-list',
+  templateUrl: './penyedia-cartridge-list.component.html',
+  styleUrl: './penyedia-cartridge-list.component.css'
 })
-export class PenyediaPrinterListComponent implements OnInit{
+export class PenyediaCartridgeListComponent implements OnInit{
 
   currentItemsToShow: any = [];
   items: any = [];  
-  printerAddForm: any = [];
+  cartridgeAddForm: any = [];
   dataDistributors: any = [];
   pageSize: number = 10;
   recordsTotal: number = 0;
@@ -35,7 +35,7 @@ export class PenyediaPrinterListComponent implements OnInit{
   } 
 
   constructor(
-    private service: PrinterServiceListService,
+    private service: CartridgeServiceListService,
     private router: Router,
     private route: ActivatedRoute,
     private http: HttpClient,
@@ -52,23 +52,22 @@ export class PenyediaPrinterListComponent implements OnInit{
   ngOnInit(): void {
     // KTToastrDemo.success(message);
     // KTToastrDemo.error(message);
-    this.getListPrinter(this.tableOptions.start, this.tableOptions.length, this.tableOptions.search);
+    this.getListCartridge(this.tableOptions.start, this.tableOptions.length, this.tableOptions.search);
     this.loadDataDistributor();
 
   }
 
   // Create New Distributor
   fromNewRecord(): void {
-    this.printerAddForm = this.formBuilder.group({
+    this.cartridgeAddForm = this.formBuilder.group({
       npwpDistributorAdd: [null, Validators.required],
-      brandAdd: [null, Validators.required],
       typeAdd: [null, Validators.required],
     })
   }
 
-  // get List Printer
-  getListPrinter(start: number, length: number, search: string): void{
-    this.service.getListPrinter(start, length, search).subscribe({
+  // get List Cartridge
+  getListCartridge(start: number, length: number, search: string): void{
+    this.service.getListCartridge(start, length, search).subscribe({
       next: (data) => {
         const response = <ResponseTemplate> data;
         if(response.status === 1){
@@ -86,46 +85,45 @@ export class PenyediaPrinterListComponent implements OnInit{
     });
   }
 
-  // search printer
-  onChangePrinter(event: Event){
+  // search Cartridge
+  onChangeCartridge(event: Event){
     const data = (event.target as HTMLInputElement).value;
     if(data != null || data != undefined){
       this.tableOptions.search = data;
-      this.getListPrinter(this.tableOptions.start, this.tableOptions.length, data);
+      this.getListCartridge(this.tableOptions.start, this.tableOptions.length, data);
     }else{
-      this.getListPrinter(this.tableOptions.start, this.tableOptions.length, this.tableOptions.search);
+      this.getListCartridge(this.tableOptions.start, this.tableOptions.length, this.tableOptions.search);
     }      
   }
 
   // Open Modal 
-  openModalPrinterAdd(){
-    const modalDiv = document.getElementById("modal_printer_add");
+  openModalCartridgeAdd(){
+    const modalDiv = document.getElementById("modal_cartridge_add");
     if(modalDiv != null){
         modalDiv.style.display = "block";
     }
   }
 
   // Close Modal 
-  closeModalPrinterAdd(){
-    const modalDiv = document.getElementById("modal_printer_add");
+  closeModalCartridgeAdd(){
+    const modalDiv = document.getElementById("modal_cartridge_add");
     if(modalDiv != null){
-        this.printerAddForm.reset();
+        this.cartridgeAddForm.reset();
         modalDiv.style.display = "none";
     }
   }
 
-  // Submit new printer
-  submitPrinter(){
+  // Submit new Cartridge
+  submitCartridge(){
     //const request = JSON.stringify(this.printerAddForm.value);
     // console.log(request);
 
     let request = {
-      "brand": this.printerAddForm.value.brandAdd,
-      "npwpDistributor": this.printerAddForm.value.npwpDistributorAdd,
-      "type": this.printerAddForm.value.typeAdd
+      "npwpDistributor": this.cartridgeAddForm.value.npwpDistributorAdd,
+      "type": this.cartridgeAddForm.value.typeAdd
     }
 
-    this.service.addPrinter(request).subscribe({
+    this.service.addCartridge(request).subscribe({
       next: (data) => {
         const response = <ResponseTemplate> data;
         if(response.status == 1){
@@ -133,10 +131,10 @@ export class PenyediaPrinterListComponent implements OnInit{
         } else {
           this.messageService.error(response.message);
         }
-        this.printerAddForm.reset();
+        this.cartridgeAddForm.reset();
       },
       error: (err) => {
-        this.printerAddForm.reset();
+        this.cartridgeAddForm.reset();
         this.messageService.error(err.message);
       }
     });
@@ -144,7 +142,7 @@ export class PenyediaPrinterListComponent implements OnInit{
 
   // Update Status Printer
   updateStatus(item: any, status: any){
-    this.service.updateStatusPrinter(item.idPrinter, status.value).subscribe({
+    this.service.updateStatusCartridge(item.idCartridge, status.value).subscribe({
       next: (data) => {
         const response = <ResponseTemplate> data;
         if(response.status == 1){
@@ -152,7 +150,7 @@ export class PenyediaPrinterListComponent implements OnInit{
         } else {
           this.messageService.error(response.message);
         }
-        this.getListPrinter(this.tableOptions.start, this.tableOptions.length, this.tableOptions.search);
+        this.getListCartridge(this.tableOptions.start, this.tableOptions.length, this.tableOptions.search);
         
       }, error: (err) => {
         this.messageService.error(err.message);
@@ -162,7 +160,7 @@ export class PenyediaPrinterListComponent implements OnInit{
 
   // Load Data NPWP Distributor
   loadDataDistributor(){
-    this.service.getListDataDitributor().subscribe({      
+    this.service.getListDataDistributor().subscribe({      
       next: (data) => {
         const response = <ResponseTemplate> data;
         if(response.status == 1){
@@ -203,7 +201,7 @@ export class PenyediaPrinterListComponent implements OnInit{
       // Jika sisa record kurang dari pageSize maka ambil sisa
       this.tableOptions.length = this.recordsTotal - this.tableOptions.start;
     }
-    this.getListPrinter(this.tableOptions.start, this.tableOptions.length, this.tableOptions.search);
+    this.getListCartridge(this.tableOptions.start, this.tableOptions.length, this.tableOptions.search);
   }
 
 }
