@@ -13,11 +13,27 @@ import { PenyediaAplikasiListComponent } from './penyedia/penyedia-aplikasi/peny
 import { PenyediaPrinterListComponent } from './penyedia/penyedia-printer/penyedia-printer-list/penyedia-printer-list.component';
 import { PenyediaAplikasiPdfPreviewComponent } from './penyedia/penyedia-aplikasi/penyedia-aplikasi-pdf-preview/penyedia-aplikasi-pdf-preview.component';
 import { PenyediaCartridgeListComponent } from './penyedia/penyedia-cartridge/penyedia-cartridge-list/penyedia-cartridge-list.component';
+import { MonitoringDistributorComponent } from './meterai/monitoring-meterai/monitoring-distributor/monitoring-distributor.component';
+import { MonitoringPenggunaComponent } from './meterai/monitoring-meterai/monitoring-pengguna/monitoring-pengguna.component';
+import { MonitoringPenggunaListComponent } from './meterai/monitoring-meterai/monitoring-pengguna/monitoring-pengguna-list/monitoring-pengguna-list.component';
+import { MonitoringPenggunaDetailsComponent } from './meterai/monitoring-meterai/monitoring-pengguna/monitoring-pengguna-details/monitoring-pengguna-details.component';
 
 const routes: Routes = [
   { path: '', component: PenyediaAplikasiComponent },
   { path: 'modals', component: ModalComponent },
-  { path: 'meterai/monitoring-meterai', component: MonitoringMeteraiComponent },
+  { path: 'meterai/monitoring-meterai', 
+    component: MonitoringMeteraiComponent,
+    children: [
+      { path: 'distributor', component: MonitoringDistributorComponent },
+      { path: 'pengguna', 
+        component: MonitoringPenggunaComponent,
+        children: [
+          { path: 'list', component: MonitoringPenggunaListComponent },
+          { path: 'details', component: MonitoringPenggunaDetailsComponent }
+        ] 
+      },
+    ] 
+  },
   { path: 'users/pemungut-meterai', component: PemungutMeteraiComponent },
   { path: 'users/retail', component: RetailComponent },
   { 

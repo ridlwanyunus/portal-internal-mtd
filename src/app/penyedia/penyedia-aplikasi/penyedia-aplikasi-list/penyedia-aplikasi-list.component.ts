@@ -103,6 +103,8 @@ export class PenyediaAplikasiListComponent {
 
   // Search by Nama or NPWP by enter
   filterSearch(): void{
+    this.tableOptions.start = 0;
+    this.tableOptions.length = 10;
     this.getDistributor(this.tableOptions.start, this.tableOptions.length, this.search);
   }
 }

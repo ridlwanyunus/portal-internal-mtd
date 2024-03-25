@@ -1,9 +1,9 @@
 export class ResponseTemplate {
 
-        data: any = {};
-        status: number;
-        message: string;
-        responseId: string
+    data: any = {};
+    status: number;
+    message: string;
+    responseId: string;
 
     constructor(
         data: any = {},

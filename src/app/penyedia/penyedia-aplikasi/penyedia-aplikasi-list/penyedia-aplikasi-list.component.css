@@ -1,0 +1,4 @@
+.kt-datatable__table {
+    display: block;
+    overflow: scroll;
+}

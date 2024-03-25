@@ -5,7 +5,7 @@
                 <i class="kt-font-brand flaticon2-line-chart"></i>
             </span>
             <h3 class="kt-portlet__head-title">
-                Daftar Penyedia Printer
+                Daftar Penyedia Aplikasi
                 <small></small>
             </h3>
         </div>
@@ -25,9 +25,9 @@
         <!--begin: Search Form -->
         <div class="kt-form kt-form--label-right kt-margin-t-20 kt-margin-b-10">
             <div class="row align-items-center">
-                <div class="col-xl-8 order-2 order-xl-1">
+                <div class="col-xl-12 order-2 order-xl-1">
                     <div class="row align-items-center">
-                        <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
+                        <div class="offset-md-9 col-md-3 kt-margin-b-20-tablet-and-mobile">
                             <div class="kt-input-icon kt-input-icon--left">
                                 <input type="text" class="form-control" placeholder="Search..." id="generalSearch" [(ngModel)]="search" (keyup.enter)="filterSearch()" />
                                 <span class="kt-input-icon__icon kt-input-icon__icon--left">
@@ -36,12 +36,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xl-4 order-1 order-xl-2 kt-align-right">
-                    <a href="#" class="btn btn-default kt-hidden">
-                        <i class="la la-cart-plus"></i> New Order
-                    </a>
-                    <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg d-xl-none"></div>
                 </div>
             </div>
         </div>
@@ -74,9 +68,6 @@
                             <span style="width: 110px;">Kode Distributor</span>
                         </th>
                         <th data-field="Country" class="kt-datatable__cell kt-datatable__cell--sort">
-                            <span style="width: 110px;">Alamat</span>
-                        </th>
-                        <th data-field="Country" class="kt-datatable__cell kt-datatable__cell--sort">
                             <span style="width: 110px;">Status</span>
                         </th>
                         <th data-field="Actions" data-autohide-disabled="false"
@@ -104,9 +95,6 @@
                         </td>
                         <td data-field="Country" class="kt-datatable__cell">
                             <span style="width: 110px;">{{ item.kodeDistributor }}</span>
-                        </td>
-                        <td data-field="Country" class="kt-datatable__cell">
-                            <span style="width: 110px;">{{ item.alamat }}</span>
                         </td>
                         <td data-field="Country" class="kt-datatable__cell">
                             <div class="kt-section__content kt-section__content--solid">

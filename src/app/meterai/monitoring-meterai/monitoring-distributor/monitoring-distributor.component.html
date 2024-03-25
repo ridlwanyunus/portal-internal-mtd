@@ -1,0 +1,190 @@
+<div class="kt-portlet kt-portlet--mobile">
+    <div class="kt-portlet__head kt-portlet__head--lg">
+        <div class="kt-portlet__head-label">
+            <span class="kt-portlet__head-icon">
+                <i class="kt-font-brand flaticon2-line-chart"></i>
+            </span>
+            <h3 class="kt-portlet__head-title">
+                Monitoring Meterai
+                <small></small>
+            </h3>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <div class="kt-portlet__head-wrapper">
+                <div class="kt-portlet__head-actions">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <!--begin: Search Form -->
+        <div class="kt-form kt-form--label-right kt-margin-t-20 kt-margin-b-10">
+            <div class="row align-items-center">
+                <div class="col-xl-12 order-2 order-xl-1">
+                    <div class="row align-items-center">
+                        
+                        <div class="offset-md-3 col-md-3 kt-margin-b-20-tablet-and-mobile">
+                            <div class="kt-form__group kt-form__group--inline">
+                                <div class="kt-form__label">
+                                    <label>Bulan:</label>
+                                </div>
+                                <div class="kt-form__control">
+                                    <select class="form-control bootstrap-select" id="selectedBulan" [(ngModel)]="selectedBulan">
+                                        <option *ngFor="let bulan of bulans" [ngValue]="bulan.id">{{ bulan.value }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
+                            <div class="kt-form__group kt-form__group--inline">
+                                <div class="kt-form__label">
+                                    <label>Tahun:</label>
+                                </div>
+                                <div class="kt-form__control">
+                                    <select class="form-control bootstrap-select" id="selectedTahun" [(ngModel)]="selectedTahun">
+                                        <option *ngFor="let tahun of tahuns" [ngValue]="tahun">{{ tahun }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
+                            <div class="kt-form__group kt-form__group--inline">
+                                <div class="kt-form__control">
+                                    <button type="button" class="btn btn-sm btn-brand btn-icon-sm" (click)="searchButton()">
+                                        <i class="flaticon2-search-1"></i> Search
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
+                            <div class="kt-input-icon kt-input-icon--left">
+                                <input type="text" class="form-control" placeholder="Search..." id="generalSearch">
+                                <span class="kt-input-icon__icon kt-input-icon__icon--left">
+                                    <span><i class="la la-search"></i></span>
+                                </span>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--end: Search Form -->
+    </div>
+    <div class="kt-portlet__body kt-portlet__body--fit">
+
+        <!--begin: Datatable -->
+        <div class="kt-datatable kt-datatable--default kt-datatable--brand kt-datatable--loaded" style="">
+            <table class="kt-datatable__table" style="display: block;">
+                <thead class="kt-datatable__head">
+                    <tr class="kt-datatable__row" style="left: 0px;">
+                        <th data-field="RecordID"
+                            class="kt-datatable__cell--center kt-datatable__cell kt-datatable__cell--check">
+                            <span style="width: 20px;">
+                                <label class="kt-checkbox kt-checkbox--single kt-checkbox--all kt-checkbox--solid">
+                                    <input type="checkbox">&nbsp;<span></span>
+                                </label>
+                            </span>
+                        </th>
+                        <th class="kt-datatable__cell kt-datatable__cell--sort">
+                            <span style="width: 110px;">Kode Distributor</span>
+                        </th>
+                        <th class="kt-datatable__cell kt-datatable__cell--sort">
+                            <span style="width: 110px;">Nama</span>
+                        </th>
+                        <th class="kt-datatable__cell kt-datatable__cell--sort">
+                            <span style="width: 110px;">NPWP</span>
+                        </th>
+                        
+                        <th class="kt-datatable__cell kt-datatable__cell--sort">
+                            <span style="width: 110px;">Total SN</span>
+                        </th>
+                        <th class="kt-datatable__cell kt-datatable__cell--sort">
+                            <span style="width: 110px;">Total Pembubuhan</span>
+                        </th>
+                        <th data-field="Actions" data-autohide-disabled="false"
+                            class="kt-datatable__cell kt-datatable__cell--sort">
+                            <span style="width: 110px;">Actions</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="kt-datatable__body" style="">
+                    <div *ngIf="response.status == 1">
+                        <tr data-row="0" class="kt-datatable__row" style="left: 0px;"
+                            *ngFor="let item of currentItemsToShow">
+                            <td class="kt-datatable__cell--center kt-datatable__cell kt-datatable__cell--check"
+                                data-field="RecordID">
+                                <span style="width: 20px;">
+                                    <label class="kt-checkbox kt-checkbox--single kt-checkbox--solid">
+                                        <input type="checkbox" value="1">&nbsp;<span></span>
+                                    </label>
+                                </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span style="width: 110px;">{{ item.kodeDistributor }}</span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span style="width: 110px;">{{ item.namaDistributor }}</span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span style="width: 110px;">{{ item.npwpDistributor }}</span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span style="width: 110px; text-align: center;">{{ item.jumlahSn }}</span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span style="width: 110px; text-align: center;">{{ item.jumlahPembubuhan }}</span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <div class="kt-section__content kt-section__content--solid">
+                                    <span style="width: 110px;" class="kt-badge kt-badge--brand kt-badge--inline"
+                                        *ngIf="item.status == 0">Belum Disetujui</span>
+                                    <span style="width: 110px;" class="kt-badge kt-badge--success kt-badge--inline"
+                                        *ngIf="item.status == 1">Aktif</span>
+                                    <span style="width: 110px;" class="kt-badge kt-badge--warning kt-badge--inline"
+                                        *ngIf="item.status == 2">Ditolak</span>
+                                    <span style="width: 110px;" class="kt-badge kt-badge--danger kt-badge--inline"
+                                        *ngIf="item.status == 3">Non Aktif</span>
+                                </div>
+
+                            </td>
+                            <td data-field="Actions" data-autohide-disabled="false" class="kt-datatable__cell"><span
+                                    style="overflow: visible; position: relative; width: 110px;">
+                                    <button title="Edit details" class="btn btn-sm btn-clean btn-icon btn-icon-md"
+                                        (click)="details(item)">
+                                        <i class="la la-edit"></i>
+                                    </button>
+                                </span>
+                            </td>
+                        </tr>
+                    </div>
+                    <div *ngIf="response.status != 1">
+                        <tr data-row="0" class="kt-datatable__row" style="left: 0px;">
+                            <td class="kt-datatable__cell">
+                                <div class="kt-section__content kt-section__content--solid">
+                                    <span style="width: 100%; text-align: center; font-size: 1em;" class="kt-badge">Tidak ada data ditemukan</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </div>
+                </tbody>
+            </table>
+            <mat-paginator (page)="onPageChange($event)" [length]="recordsTotal" [pageSize]="pageSize"
+                [pageSizeOptions]="[5, 10, 25, 100]" aria-label="select page of distributor">
+            </mat-paginator>
+        </div> <!--end: Datatable -->
+
+
+
+        <!-- begin: Loading -->
+        <div *ngIf="loadingService.isLoading | async" id="loading">
+            <mat-spinner diameter="80" mode="indeterminate" strokeWidth="8"></mat-spinner>
+        </div>
+        <!-- end: Loading -->
+        <router-outlet></router-outlet>
+    </div>
+</div>
