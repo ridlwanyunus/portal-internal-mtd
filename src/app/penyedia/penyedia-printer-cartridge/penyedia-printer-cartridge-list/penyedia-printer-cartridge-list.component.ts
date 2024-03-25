@@ -22,7 +22,6 @@ export class PenyediaPrinterCartridgeListComponent implements OnInit{
   dataCartridges:any = [];
   pageSize: number = 10;
   recordsTotal: number = 0;
-  isValid: any = true;
   idPrinterCartridge: string = "";
 
   listStatus: any = [
@@ -196,28 +195,11 @@ export class PenyediaPrinterCartridgeListComponent implements OnInit{
     }      
   }
 
-  // change status
-  onChangeStatus(event: Event){
-    const data = (event.target as HTMLInputElement).value;
-    if(data != null || data != undefined){
-      if(data === "1"){        
-        // const p = document.getElementById('show-sertifikasi');
-        // p?.removeAttribute("hidden");
-        this.isValid = false;
-      }else{
-        this.isValid = true;
-      }
-    }else{
-      this.isValid = true;
-    }      
-  }
-
   // change NPWP
   onChangeNpwp(){
     //const data = (event.target as HTMLInputElement).value;
     let data = this.printerCartridgeAddForm.value.npwpDistributorAdd;
     if(data != null || data != undefined){
-      console.log("data "+data)
       this.loadDataPrinter(data);
       this.loadDataCartridge(data);
     }else{
@@ -255,7 +237,6 @@ export class PenyediaPrinterCartridgeListComponent implements OnInit{
   closeModalApproveAdd(){
     const modalDiv = document.getElementById("modal_approval");
     if(modalDiv != null){
-        this.isValid = true;
         this.approvedForm.reset();
         modalDiv.style.display = "none";
         this.idPrinterCartridge = "";
@@ -289,8 +270,8 @@ export class PenyediaPrinterCartridgeListComponent implements OnInit{
 
   // Submit Approved
   submitApproved(){
-    const request = JSON.stringify(this.approvedForm.value);
-    this.service.updateStatusPrinterCartridge(this.idPrinterCartridge, this.approvedForm.value.noSertifikasiAdd, this.approvedForm.value.statusAdd, this.approvedForm.value.keteranganAdd).subscribe({
+    // const request = JSON.stringify(this.approvedForm.value);
+    this.service.updateStatusPrinterCartridge(this.idPrinterCartridge, this.approvedForm.value.statusAdd, this.approvedForm.value.keteranganAdd).subscribe({
       next: (data) => {
         const response = <ResponseTemplate> data;
         if(response.status == 1){
@@ -298,8 +279,8 @@ export class PenyediaPrinterCartridgeListComponent implements OnInit{
         } else {
           this.messageService.error(response.message);
         }
-        this.isValid = true;
         this.approvedForm.reset();
+        this.closeModalApproveAdd();
         this.getListPrinterCartridge(this.tableOptions.start, this.tableOptions.length, this.tableOptions.search);
         
       }, error: (err) => {

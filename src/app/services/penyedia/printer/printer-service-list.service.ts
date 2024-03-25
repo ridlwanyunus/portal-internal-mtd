@@ -9,12 +9,12 @@ import { ResponseTemplate } from '../../../model/response-template.model';
 export class PrinterServiceListService {
 
   httpOptions = {}
-  url = 'http://localhost:8082';//'http://36.94.117.75:8080';
+  url = 'http://36.94.117.75:8080';
 
   constructor(private http: HttpClient) { }
 
   addPrinter(request: any): Observable<unknown>{
-    let endpoint = this.url + '/printercertified/add';
+    let endpoint = this.url + '/register/printercertified/add';
     console.log(request);
     return this.http.post<ResponseTemplate>(endpoint, request , {}).pipe(catchError((err: HttpErrorResponse) => {
         //debugger;
@@ -25,7 +25,7 @@ export class PrinterServiceListService {
 
   getListPrinter(start: number, length: number, search: string): Observable<unknown>{
     // let endpoint = this.url + '/register/printercertified/list';
-    let endpoint = this.url + '/printercertified/list';
+    let endpoint = this.url + '/register/printercertified/list';
 
     let exampleRequest = {
       "columns": [
@@ -63,14 +63,14 @@ export class PrinterServiceListService {
   }
 
   getListDataDitributor(): Observable<unknown>{
-    let endpoint = this.url + '/distributor/listKdDistributor';
+    let endpoint = this.url + '/register/distributor/listKdDistributor';
     return this.http.get<ResponseTemplate>(endpoint).pipe(catchError((err: HttpErrorResponse) => {
       return throwError(() => err);
     }));
   }
 
   updateStatusPrinter(id: string, noSertfikasi: string, status: string, keterangan: string): Observable<unknown>{
-    let endpoint = this.url + '/printercertified/updatedstatus';
+    let endpoint = this.url + '/register/printercertified/updatedstatus';
     let body = {};
     let queryParam = new HttpParams();
     queryParam = queryParam.append("id", id);

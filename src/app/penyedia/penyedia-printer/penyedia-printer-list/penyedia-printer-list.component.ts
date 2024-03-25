@@ -64,9 +64,9 @@ export class PenyediaPrinterListComponent implements OnInit{
   // Create New Distributor
   fromNewRecord(): void {
     this.printerAddForm = this.formBuilder.group({
-      npwpDistributorAdd: [null, Validators.required],
-      brandAdd: [null, Validators.required],
-      typeAdd: [null, Validators.required],
+      npwpDistributorAdd: [, Validators.required],
+      brandAdd: [, Validators.required],
+      typeAdd: [, Validators.required],
     })
   }
 
@@ -75,8 +75,8 @@ export class PenyediaPrinterListComponent implements OnInit{
     this.approvedForm = this.formBuilder.group({
       idPrinterAdd: [, Validators.required],
       statusAdd: [, Validators.required],
-      noSertifikasiAdd: [null, Validators.required],
-      keteranganAdd: [null, Validators.required],
+      noSertifikasiAdd: [, Validators.required],
+      keteranganAdd: [, Validators.required],
     })
   }
 
@@ -241,7 +241,7 @@ export class PenyediaPrinterListComponent implements OnInit{
 
   // Submit Approved
   submitApproved(){
-    const request = JSON.stringify(this.approvedForm.value);
+    // const request = JSON.stringify(this.approvedForm.value);
     this.service.updateStatusPrinter(this.idPrinter, this.approvedForm.value.noSertifikasiAdd, this.approvedForm.value.statusAdd, this.approvedForm.value.keteranganAdd).subscribe({
       next: (data) => {
         const response = <ResponseTemplate> data;
@@ -252,6 +252,7 @@ export class PenyediaPrinterListComponent implements OnInit{
         }
         this.isValid = true;
         this.approvedForm.reset();
+        this.closeModalApproveAdd();
         this.getListPrinter(this.tableOptions.start, this.tableOptions.length, this.tableOptions.search);
         
       }, error: (err) => {

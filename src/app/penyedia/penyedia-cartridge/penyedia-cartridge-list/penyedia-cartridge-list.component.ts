@@ -229,6 +229,7 @@ export class PenyediaCartridgeListComponent implements OnInit{
         }
         this.isValid = true;
         this.approvedForm.reset();
+        this.closeModalApproveAdd();
         this.getListCartridge(this.tableOptions.start, this.tableOptions.length, this.tableOptions.search);
         
       }, error: (err) => {

@@ -227,7 +227,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Approval New Printer</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Approval New Printer Cartridge</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModalApproveAdd()">
                     </button>
                 </div>
@@ -239,14 +239,9 @@
                         </div>
                         <div class="form-group">
                             <label for="noSertifikasi-text" class="form-control-label">Status:</label>
-                            <select class="form-control m-select2" id="statusAdd" formControlName="statusAdd" placeholder="Select Status" (change)="onChangeStatus($event)">
+                            <select class="form-control m-select2" id="statusAdd" formControlName="statusAdd" placeholder="Select Status">
                                 <option *ngFor="let status of listStatus" [value]="status.value">{{status.name}}</option>
                             </select>
-                        </div>
-                        <div class="form-group" id="show-sertifikasi" *ngIf="!isValid">
-                            <label for="noSertifikasi-text" class="form-control-label">Nomor Sertikasi:</label>
-                            <input type="text" class="form-control" aria-describedby="noSertifikasiHelp" id="noSertifikasiAdd"
-                                    formControlName="noSertifikasiAdd" placeholder="Enter Nomor Sertikasi">
                         </div>
                         <div class="form-group">
                             <label for="keterangan-text" class="form-control-label">Keterangan:</label>
