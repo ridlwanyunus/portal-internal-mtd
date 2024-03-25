@@ -9,7 +9,7 @@ import { ResponseTemplate } from '../../../model/response-template.model';
 export class MonitoringDistributorService {
 
   httpOptions = {};
-  url = 'http://localhost:9001';
+  url = 'http://36.94.117.75:9091';
 
   constructor(
     private http: HttpClient
