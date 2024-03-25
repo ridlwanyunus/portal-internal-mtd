@@ -17,9 +17,12 @@ export class PenyediaCartridgeListComponent implements OnInit{
   currentItemsToShow: any = [];
   items: any = [];  
   cartridgeAddForm: any = [];
+  approvedForm: any = [];
   dataDistributors: any = [];
   pageSize: number = 10;
   recordsTotal: number = 0;
+  isValid: any = true;
+  idCartridge: string = "";
 
   listStatus: any = [
     {value: 0, name: 'Belum Disetujui', icon:"fa fa-envelope"},
@@ -47,6 +50,7 @@ export class PenyediaCartridgeListComponent implements OnInit{
       console.log('penyedia printer constructor')
 
       this.fromNewRecord();
+      this.fromApprovedRecord();
   }
 
   ngOnInit(): void {
@@ -63,6 +67,45 @@ export class PenyediaCartridgeListComponent implements OnInit{
       npwpDistributorAdd: [null, Validators.required],
       typeAdd: [null, Validators.required],
     })
+  }
+
+  // Create Approve
+  fromApprovedRecord(): void {
+    this.approvedForm = this.formBuilder.group({
+      idCartridgeAdd: [, Validators.required],
+      statusAdd: [, Validators.required],
+      noSertifikasiAdd: [null, Validators.required],
+      keteranganAdd: [null, Validators.required],
+    })
+  }
+
+  // Load Data NPWP Distributor
+  loadDataDistributor(){
+    this.service.getListDataDistributor().subscribe({      
+      next: (data) => {
+        const response = <ResponseTemplate> data;
+        if(response.status == 1){
+          for (let dt in response.data) { 
+
+            const listDistributor: any ={
+              id: String,
+              name: String,
+            }
+
+            listDistributor.id = dt;
+            listDistributor.name = response.data[dt];
+
+            this.dataDistributors.push(listDistributor);
+          }      
+        //this.dataDistributors = Object.entries(response.data).map(([k,v]) => (console.log(k,v)));
+        } else {
+          this.messageService.error(response.message);
+        }
+      },
+      error: (err) => {
+        this.messageService.error(err.message);
+      }
+    });
   }
 
   // get List Cartridge
@@ -96,6 +139,20 @@ export class PenyediaCartridgeListComponent implements OnInit{
     }      
   }
 
+  // change status
+  onChangeStatus(event: Event){
+    const data = (event.target as HTMLInputElement).value;
+    if(data != null || data != undefined){
+      if(data === "1"){        
+        this.isValid = false;
+      }else{
+        this.isValid = true;
+      }
+    }else{
+      this.isValid = true;
+    }      
+  }
+
   // Open Modal 
   openModalCartridgeAdd(){
     const modalDiv = document.getElementById("modal_cartridge_add");
@@ -113,11 +170,30 @@ export class PenyediaCartridgeListComponent implements OnInit{
     }
   }
 
+  // Open Modal Approve
+  openModalApproveAdd(item: any){
+    const modalDiv = document.getElementById("modal_approval_cartridge");
+    if(modalDiv != null){
+        modalDiv.style.display = "block";
+        this.idCartridge = item.idCartridge;
+    }
+  }
+
+  // Close Modal Approve
+  closeModalApproveAdd(){
+    const modalDiv = document.getElementById("modal_approval_cartridge");
+    if(modalDiv != null){
+        this.isValid = true;
+        this.approvedForm.reset();
+        modalDiv.style.display = "none";
+        this.idCartridge = "";
+    }
+  }  
+
   // Submit new Cartridge
   submitCartridge(){
     //const request = JSON.stringify(this.printerAddForm.value);
     // console.log(request);
-
     let request = {
       "npwpDistributor": this.cartridgeAddForm.value.npwpDistributorAdd,
       "type": this.cartridgeAddForm.value.typeAdd
@@ -140,9 +216,10 @@ export class PenyediaCartridgeListComponent implements OnInit{
     });
   }
 
-  // Update Status Printer
-  updateStatus(item: any, status: any){
-    this.service.updateStatusCartridge(item.idCartridge, status.value).subscribe({
+  // Submit Approved
+  submitApproved(){
+    const request = JSON.stringify(this.approvedForm.value);
+    this.service.updateStatusCartridge(this.idCartridge, this.approvedForm.value.noSertifikasiAdd, this.approvedForm.value.statusAdd, this.approvedForm.value.keteranganAdd).subscribe({
       next: (data) => {
         const response = <ResponseTemplate> data;
         if(response.status == 1){
@@ -150,45 +227,35 @@ export class PenyediaCartridgeListComponent implements OnInit{
         } else {
           this.messageService.error(response.message);
         }
+        this.isValid = true;
+        this.approvedForm.reset();
+        this.closeModalApproveAdd();
         this.getListCartridge(this.tableOptions.start, this.tableOptions.length, this.tableOptions.search);
         
       }, error: (err) => {
+        this.approvedForm.reset();
         this.messageService.error(err.message);
       }
     });
   }
 
-  // Load Data NPWP Distributor
-  loadDataDistributor(){
-    this.service.getListDataDistributor().subscribe({      
-      next: (data) => {
-        const response = <ResponseTemplate> data;
-        if(response.status == 1){
-          for (let dt in response.data) { 
-
-            const listDistributor: any ={
-              id: String,
-              name: String,
-            }
-
-            listDistributor.id = dt;
-            listDistributor.name = response.data[dt];
-
-            this.dataDistributors.push(listDistributor);
-          }      
-          
-          console.log(this.dataDistributors)
-
-        //this.dataDistributors = Object.entries(response.data).map(([k,v]) => (console.log(k,v)));
-        } else {
-          this.messageService.error(response.message);
-        }
-      },
-      error: (err) => {
-        this.messageService.error(err.message);
-      }
-    });
-  }
+  // Update Status Printer
+  // updateStatus(item: any, status: any){
+  //   this.service.updateStatusCartridge(item.idCartridge, status.value).subscribe({
+  //     next: (data) => {
+  //       const response = <ResponseTemplate> data;
+  //       if(response.status == 1){
+  //         this.messageService.success(response.message);
+  //       } else {
+  //         this.messageService.error(response.message);
+  //       }
+  //       this.getListCartridge(this.tableOptions.start, this.tableOptions.length, this.tableOptions.search);
+        
+  //     }, error: (err) => {
+  //       this.messageService.error(err.message);
+  //     }
+  //   });
+  // }
 
   // Pagination
   onPageChange($event: any){

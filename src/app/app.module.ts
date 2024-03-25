@@ -38,7 +38,8 @@ import { MonitoringDistributorComponent } from './meterai/monitoring-meterai/mon
 import { MonitoringPenggunaComponent } from './meterai/monitoring-meterai/monitoring-pengguna/monitoring-pengguna.component';
 import { MonitoringPenggunaListComponent } from './meterai/monitoring-meterai/monitoring-pengguna/monitoring-pengguna-list/monitoring-pengguna-list.component';
 import { MonitoringPenggunaDetailsComponent } from './meterai/monitoring-meterai/monitoring-pengguna/monitoring-pengguna-details/monitoring-pengguna-details.component';
-
+import { PenyediaPrinterCartridgeComponent } from './penyedia/penyedia-printer-cartridge/penyedia-printer-cartridge.component';
+import { PenyediaPrinterCartridgeListComponent } from './penyedia/penyedia-printer-cartridge/penyedia-printer-cartridge-list/penyedia-printer-cartridge-list.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,9 @@ import { MonitoringPenggunaDetailsComponent } from './meterai/monitoring-meterai
     MonitoringDistributorComponent,
     MonitoringPenggunaComponent,
     MonitoringPenggunaListComponent,
-    MonitoringPenggunaDetailsComponent
+    MonitoringPenggunaDetailsComponent,
+    PenyediaPrinterCartridgeComponent,
+    PenyediaPrinterCartridgeListComponent
   ],
   imports: [
     BrowserModule,

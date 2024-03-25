@@ -17,7 +17,8 @@ import { MonitoringDistributorComponent } from './meterai/monitoring-meterai/mon
 import { MonitoringPenggunaComponent } from './meterai/monitoring-meterai/monitoring-pengguna/monitoring-pengguna.component';
 import { MonitoringPenggunaListComponent } from './meterai/monitoring-meterai/monitoring-pengguna/monitoring-pengguna-list/monitoring-pengguna-list.component';
 import { MonitoringPenggunaDetailsComponent } from './meterai/monitoring-meterai/monitoring-pengguna/monitoring-pengguna-details/monitoring-pengguna-details.component';
-
+import { PenyediaPrinterCartridgeComponent } from './penyedia/penyedia-printer-cartridge/penyedia-printer-cartridge.component';
+import { PenyediaPrinterCartridgeListComponent } from './penyedia/penyedia-printer-cartridge/penyedia-printer-cartridge-list/penyedia-printer-cartridge-list.component';
 const routes: Routes = [
   { path: '', component: PenyediaAplikasiComponent },
   { path: 'modals', component: ModalComponent },
@@ -56,8 +57,13 @@ const routes: Routes = [
       { path: 'list', component: PenyediaCartridgeListComponent },
       // { path: 'add', component: PrinterAddComponent }
     ]
+  },
+  { path: 'penyedia/penyedia-printer-cartridge-verify', component: PenyediaPrinterCartridgeComponent,
+    children: [
+      { path: 'list', component: PenyediaPrinterCartridgeListComponent },
+      // { path: 'add', component: PrinterAddComponent }
+    ]
   }
-
 ];
 
 @NgModule({
