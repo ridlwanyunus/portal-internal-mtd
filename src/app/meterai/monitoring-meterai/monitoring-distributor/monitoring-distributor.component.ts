@@ -77,7 +77,7 @@ export class MonitoringDistributorComponent implements OnInit, OnDestroy{
     this.monitoringDistributorService.getDistributorMonitoring(start, length, search).subscribe({
       next: (data) => {
         this.response = <ResponseTemplate> data;
-        console.log(this.response);
+
         if(this.response.status == 1){
           this.items = this.response.data.data;
           this.currentItemsToShow = this.items;
@@ -138,8 +138,7 @@ export class MonitoringDistributorComponent implements OnInit, OnDestroy{
 
   // load details page
   details(item: any){
-    console.log(item);
+    this.router.navigate(['meterai/monitoring-meterai/pengguna/list'], { state: { data: item } });
   }
-
 
 }

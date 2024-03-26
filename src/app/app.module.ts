@@ -40,6 +40,7 @@ import { MonitoringPenggunaListComponent } from './meterai/monitoring-meterai/mo
 import { MonitoringPenggunaDetailsComponent } from './meterai/monitoring-meterai/monitoring-pengguna/monitoring-pengguna-details/monitoring-pengguna-details.component';
 import { PenyediaPrinterCartridgeComponent } from './penyedia/penyedia-printer-cartridge/penyedia-printer-cartridge.component';
 import { PenyediaPrinterCartridgeListComponent } from './penyedia/penyedia-printer-cartridge/penyedia-printer-cartridge-list/penyedia-printer-cartridge-list.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { PenyediaPrinterCartridgeListComponent } from './penyedia/penyedia-print
     NgSelectModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass:InterceptorService, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
     provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
