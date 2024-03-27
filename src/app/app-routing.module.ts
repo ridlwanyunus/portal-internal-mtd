@@ -19,13 +19,24 @@ import { MonitoringPenggunaListComponent } from './meterai/monitoring-meterai/mo
 import { MonitoringPenggunaDetailsComponent } from './meterai/monitoring-meterai/monitoring-pengguna/monitoring-pengguna-details/monitoring-pengguna-details.component';
 import { PenyediaPrinterCartridgeComponent } from './penyedia/penyedia-printer-cartridge/penyedia-printer-cartridge.component';
 import { PenyediaPrinterCartridgeListComponent } from './penyedia/penyedia-printer-cartridge/penyedia-printer-cartridge-list/penyedia-printer-cartridge-list.component';
+import { MonitoringDistributorListComponent } from './meterai/monitoring-meterai/monitoring-distributor/monitoring-distributor-list/monitoring-distributor-list.component';
+import { MonitoringDistributorDetailsComponent } from './meterai/monitoring-meterai/monitoring-distributor/monitoring-distributor-details/monitoring-distributor-details.component';
+import { MonitoringSerialNumberComponent } from './meterai/monitoring-meterai/monitoring-serial-number/monitoring-serial-number.component';
+import { MonitoringSerialNumberListComponent } from './meterai/monitoring-meterai/monitoring-serial-number/monitoring-serial-number-list/monitoring-serial-number-list.component';
+import { MonitoringSerialNumberDetailsComponent } from './meterai/monitoring-meterai/monitoring-serial-number/monitoring-serial-number-details/monitoring-serial-number-details.component';
 const routes: Routes = [
   { path: '', component: PenyediaAplikasiComponent },
   { path: 'modals', component: ModalComponent },
   { path: 'meterai/monitoring-meterai', 
     component: MonitoringMeteraiComponent,
     children: [
-      { path: 'distributor', component: MonitoringDistributorComponent },
+      { path: 'distributor', 
+        component: MonitoringDistributorComponent,
+        children: [
+          { path: 'list', component: MonitoringDistributorListComponent },
+          { path: 'details', component: MonitoringDistributorDetailsComponent }
+        ] 
+      },
       { path: 'pengguna', 
         component: MonitoringPenggunaComponent,
         children: [
@@ -33,6 +44,13 @@ const routes: Routes = [
           { path: 'details', component: MonitoringPenggunaDetailsComponent }
         ] 
       },
+      { path: 'serial-number', 
+        component: MonitoringSerialNumberComponent,
+        children: [
+          { path: 'list', component: MonitoringSerialNumberListComponent },
+          { path: 'details', component: MonitoringSerialNumberDetailsComponent },
+        ] 
+      }
     ] 
   },
   { path: 'users/pemungut-meterai', component: PemungutMeteraiComponent },

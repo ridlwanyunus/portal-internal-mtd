@@ -40,7 +40,12 @@ import { MonitoringPenggunaListComponent } from './meterai/monitoring-meterai/mo
 import { MonitoringPenggunaDetailsComponent } from './meterai/monitoring-meterai/monitoring-pengguna/monitoring-pengguna-details/monitoring-pengguna-details.component';
 import { PenyediaPrinterCartridgeComponent } from './penyedia/penyedia-printer-cartridge/penyedia-printer-cartridge.component';
 import { PenyediaPrinterCartridgeListComponent } from './penyedia/penyedia-printer-cartridge/penyedia-printer-cartridge-list/penyedia-printer-cartridge-list.component';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { DatePipe, HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { MonitoringSerialNumberComponent } from './meterai/monitoring-meterai/monitoring-serial-number/monitoring-serial-number.component';
+import { MonitoringSerialNumberListComponent } from './meterai/monitoring-meterai/monitoring-serial-number/monitoring-serial-number-list/monitoring-serial-number-list.component';
+import { MonitoringSerialNumberDetailsComponent } from './meterai/monitoring-meterai/monitoring-serial-number/monitoring-serial-number-details/monitoring-serial-number-details.component';
+import { MonitoringDistributorListComponent } from './meterai/monitoring-meterai/monitoring-distributor/monitoring-distributor-list/monitoring-distributor-list.component';
+import { MonitoringDistributorDetailsComponent } from './meterai/monitoring-meterai/monitoring-distributor/monitoring-distributor-details/monitoring-distributor-details.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +72,12 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     MonitoringPenggunaListComponent,
     MonitoringPenggunaDetailsComponent,
     PenyediaPrinterCartridgeComponent,
-    PenyediaPrinterCartridgeListComponent
+    PenyediaPrinterCartridgeListComponent,
+    MonitoringSerialNumberComponent,
+    MonitoringSerialNumberListComponent,
+    MonitoringSerialNumberDetailsComponent,
+    MonitoringDistributorListComponent,
+    MonitoringDistributorDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -87,6 +97,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
+    DatePipe,
     provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]

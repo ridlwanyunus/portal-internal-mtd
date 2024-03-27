@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { ResponseTemplate } from '../../../model/response-template.model';
@@ -6,49 +6,29 @@ import { ResponseTemplate } from '../../../model/response-template.model';
 @Injectable({
   providedIn: 'root'
 })
-export class MonitoringPenggunaService {
-  url = 'http://36.94.117.75:9091';
-  httpOptions: any = {}
+export class MonitoringSerialNumberService {
+
+  httpOptions: any = {};
+  url: string = 'http://36.94.117.75:9091';
 
   constructor(
     private http: HttpClient
   ) { }
 
-  // Get List Pengguna Header for Monitoring
-  getPenggunaMonitoringHeader(idDistributor: string): Observable<unknown> {
-    let endpoint = this.url + '/api/mon/pengguna/header';
-
-    let queryParam = new HttpParams();
-    queryParam = queryParam.append("dist", idDistributor);
-
-    return this.http.post<ResponseTemplate>(endpoint, {}, { params: queryParam })
-      .pipe(catchError(
-        (err: HttpErrorResponse) => {
-          return throwError(() => { err })
-        }
-      ));
-  }
-
-  // Get List Pengguna for Monitoring
-  getPenggunaMonitoring(start: number, length: number, tahunMasa: string, idDistributor: string): Observable<unknown> {
-    let endpoint = this.url + '/api/mon/pengguna';
-
+  getSerialNumberMonitoring(start: number, length: number, search: string): Observable<unknown> {
+    let endpoint = this.url + '/api/mon/sngenbubuh';
     let request = {
       "draw": 0,
       "start": start,
       "length": length,
       "search": {
-        "value": tahunMasa,
-        "regex": true
-      },
-      "search2": {
-        "value": idDistributor,
+        "value": search,
         "regex": true
       },
       "order": [
         {
           "column": 0,
-          "dir": "desc"
+          "dir": "asc"
         }
       ],
       "columns": [
@@ -100,12 +80,14 @@ export class MonitoringPenggunaService {
         }
       }
     }
-    console.log(request)
+
     return this.http.post<ResponseTemplate>(endpoint, request, this.httpOptions)
       .pipe(catchError(
         (err: HttpErrorResponse) => {
-          return throwError(() => { err })
+          return throwError(() => err)
         }
       ));
+
   }
+
 }
