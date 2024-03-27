@@ -148,8 +148,8 @@ export class MonitoringSerialNumberListComponent {
   }
 
   // Date format
-  fomatDate(date: string){
-    return this.datepipe.transform(date, 'hh:mm:ss dd-MM-YYYY');
+  formatDate(date: string){
+    return this.datepipe.transform(date, 'YYYY-MM-dd hh:mm:ss');
   }
 
 }

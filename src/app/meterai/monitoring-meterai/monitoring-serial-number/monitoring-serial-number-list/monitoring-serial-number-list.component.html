@@ -86,23 +86,19 @@
                             </span>
                         </th>
                         <th class="kt-datatable__cell kt-datatable__cell--sort">
-                            <span style="">Nomor Serial Number</span>
+                            <span style="width: 180px;">Nomor Serial Number</span>
                         </th>
                         <th class="kt-datatable__cell kt-datatable__cell--sort">
-                            <span style="width: 110px;">NPWP Pemungut</span>
+                            <span style="width: 120px;">NPWP Pemungut</span>
                         </th>
                         <th class="kt-datatable__cell kt-datatable__cell--sort">
-                            <span style="width: 110px;">Kode Distributor</span>
+                            <span style="width: 80px;">Kode Distributor</span>
                         </th>
                         <th class="kt-datatable__cell kt-datatable__cell--sort">
                             <span style="width: 110px;">Total Pembuatan</span>
                         </th>
                         <th class="kt-datatable__cell kt-datatable__cell--sort">
                             <span style="width: 110px;">Tanggal Pembubuhan</span>
-                        </th>
-                        <th data-field="Actions" data-autohide-disabled="false"
-                            class="kt-datatable__cell kt-datatable__cell--sort">
-                            <span style="width: 110px;">Actions</span>
                         </th>
                     </tr>
                 </thead>
@@ -119,27 +115,19 @@
                                 </span>
                             </td>
                             <td class="kt-datatable__cell">
-                                <span >{{ item.nomorSn }}</span>
+                                <span style="width: 180px; text-align: left;">{{ item.nomorSn }}</span>
                             </td>
                             <td class="kt-datatable__cell">
-                                <span >{{ item.npwpPengguna }}</span>
+                                <span style="width: 120px; text-align: left;">{{ item.npwpPengguna }}</span>
                             </td>
                             <td class="kt-datatable__cell">
-                                <span style="width: 110px; text-align: left;">{{ item.kodeDistributor }}</span>
+                                <span style="width: 80px; text-align: left;">{{ item.kodeDistributor }}</span>
                             </td>
                             <td class="kt-datatable__cell">
-                                <span style="width: 110px; text-align: left;">{{ fomatDate(item.creationDate) }}</span>
+                                <span style="width: 110px; text-align: left;">{{ formatDate(item.creationDate) }}</span>
                             </td>
                             <td class="kt-datatable__cell">
-                                <span style="width: 110px; text-align: left;">{{ fomatDate(item.tglPembubuhan) }}</span>
-                            </td>
-                            <td data-field="Actions" data-autohide-disabled="false" class="kt-datatable__cell"><span
-                                    style="overflow: visible; position: relative; width: 110px;">
-                                    <button title="Edit details" class="btn btn-sm btn-clean btn-icon btn-icon-md"
-                                        (click)="details(item)">
-                                        <i class="la la-edit"></i>
-                                    </button>
-                                </span>
+                                <span style="width: 110px; text-align: left;">{{ formatDate(item.tglPembubuhan) }}</span>
                             </td>
                         </tr>
                     </div>
