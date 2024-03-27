@@ -5,6 +5,7 @@ import { LoadingServiceService } from '../../../../services/loading/loading-serv
 import { ShowMessageService } from '../../../../services/message/show-message.service';
 import { ResponseTemplate } from '../../../../model/response-template.model';
 import { SharedService } from '../../../../services/shared/shared.service';
+import { MonitoringDistributorService } from '../../../../services/meterai/monitoring-meterai/monitoring-distributor.service';
 
 @Component({
   selector: 'app-monitoring-distributor-details',
@@ -46,10 +47,16 @@ export class MonitoringDistributorDetailsComponent {
     search: this.search
   }
 
+  tableHeader: any = {
+    kodeDistributor: '',
+    namaDistributor: '',
+    npwpDistributor: ''
+  }
+
   response: any;
 
   constructor(
-    private monitoringPenggunaService: MonitoringPenggunaService,
+    private monitoringDistributorService: MonitoringDistributorService,
     private router: Router,
     public loadingService: LoadingServiceService,
     private messageService: ShowMessageService,
@@ -65,10 +72,12 @@ export class MonitoringDistributorDetailsComponent {
     })
     if(this.data){
       this.tableOptions.search = this.data.filter;
-      console.log(this.data);
+      this.tableHeader.kodeDistributor = this.data.item.kodeDistributor;
+      this.tableHeader.namaDistributor = this.data.item.namaDistributor;
+      this.tableHeader.npwpDistributor = this.data.item.npwpDistributor;
       this.getMonitoringPengguna(this.tableOptions.start, this.tableOptions.length, this.tableOptions.search, this.data.item.idDistributor);
     } else {
-      this.router.navigate(['/meterai/monitoring-meterai/distributor']);
+      this.router.navigate(['/meterai/monitoring-meterai/distributor/list']);
     }
     
   }
@@ -79,7 +88,7 @@ export class MonitoringDistributorDetailsComponent {
 
   // Get Monitoring Pengguna
   getMonitoringPengguna(start: number, length: number, search: string, idDistributor: string){
-    this.monitoringPenggunaService.getPenggunaMonitoring(start, length, search, idDistributor).subscribe({
+    this.monitoringDistributorService.getPenggunaMonitoring(start, length, search, idDistributor).subscribe({
       next: (data) => {
         this.response = <ResponseTemplate> data;
         console.log(this.response);
@@ -100,6 +109,8 @@ export class MonitoringDistributorDetailsComponent {
       }
     })
   }
+
+  
 
   // Table Pagination
   onPageChange($event: any): void {

@@ -13,7 +13,7 @@
             <div class="kt-portlet__head-wrapper">
                 <div class="kt-portlet__head-actions">
                     &nbsp;
-                    <a routerLink="/meterai/monitoring-meterai/distributor"
+                    <a routerLink="/meterai/monitoring-meterai/distributor/list"
                         class="btn btn-brand btn-elevate btn-icon-sm">
                         <i class="flaticon2-back"></i>
                         Tutup
@@ -24,9 +24,22 @@
     </div>
     <div class="kt-portlet__body">
         <!--begin: Search Form -->
-        <div class="kt-form kt-form--label-right kt-margin-t-20 kt-margin-b-10">
-            <div class="row align-items-center">
-                <div class="col-xl-12 order-2 order-xl-1">
+        <div class="kt-form">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="form-group row">
+                        <label class="col-2" style="font-weight: 600;">Nama Distributor</label>
+                        <label>{{ tableHeader.namaDistributor }}</label>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-2" style="font-weight: 600;">NPWP Distributor</label>
+                        <label>{{ tableHeader.npwpDistributor }}</label>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-2" style="font-weight: 600;">Kode Distributor</label>
+                        <label>{{ tableHeader.kodeDistributor }}</label>
+                    </div>
+                    <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
                 </div>
             </div>
         </div>
