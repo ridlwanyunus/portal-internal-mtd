@@ -19,54 +19,7 @@
     </div>
     <div class="kt-portlet__body">
         <!--begin: Search Form -->
-        <div class="kt-form kt-form--label-right kt-margin-t-20 kt-margin-b-10">
-            <div class="row align-items-center">
-                <div class="col-xl-12 order-2 order-xl-1">
-                    <div class="row align-items-center">
 
-                        <div class="offset-md-3 col-md-3 kt-margin-b-20-tablet-and-mobile">
-                            <div class="kt-form__group kt-form__group--inline">
-                                <div class="kt-form__label">
-                                    <label>Bulan:</label>
-                                </div>
-                                <div class="kt-form__control">
-                                    <select class="form-control bootstrap-select" id="selectedBulan"
-                                        [(ngModel)]="selectedBulan">
-                                        <option *ngFor="let bulan of bulans" [ngValue]="bulan.id">{{ bulan.value }}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
-                            <div class="kt-form__group kt-form__group--inline">
-                                <div class="kt-form__label">
-                                    <label>Tahun:</label>
-                                </div>
-                                <div class="kt-form__control">
-                                    <select class="form-control bootstrap-select" id="selectedTahun"
-                                        [(ngModel)]="selectedTahun">
-                                        <option *ngFor="let tahun of tahuns" [ngValue]="tahun">{{ tahun }}</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
-                            <div class="kt-form__group kt-form__group--inline">
-                                <div class="kt-form__control">
-                                    <button type="button" class="btn btn-sm btn-brand btn-icon-sm"
-                                        (click)="searchButton()">
-                                        <i class="flaticon2-search-1"></i> Search
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <!--end: Search Form -->
 
     </div>
@@ -86,7 +39,7 @@
                             </span>
                         </th>
                         <th class="kt-datatable__cell kt-datatable__cell--sort">
-                            <span style="width: 180px;">Nomor Serial Number</span>
+                            <span style="width: 175px;">Nomor Serial Number</span>
                         </th>
                         <th class="kt-datatable__cell kt-datatable__cell--sort">
                             <span style="width: 120px;">NPWP Pemungut</span>
@@ -95,7 +48,10 @@
                             <span style="width: 80px;">Kode Distributor</span>
                         </th>
                         <th class="kt-datatable__cell kt-datatable__cell--sort">
-                            <span style="width: 110px;">Total Pembuatan</span>
+                            <span style="width: 110px;">Tanggal Pembuatan</span>
+                        </th>
+                        <th class="kt-datatable__cell kt-datatable__cell--sort">
+                            <span style="width: 100px;">Status Pembubuhan</span>
                         </th>
                         <th class="kt-datatable__cell kt-datatable__cell--sort">
                             <span style="width: 110px;">Tanggal Pembubuhan</span>
@@ -115,7 +71,7 @@
                                 </span>
                             </td>
                             <td class="kt-datatable__cell">
-                                <span style="width: 180px; text-align: left;">{{ item.nomorSn }}</span>
+                                <span style="width: 175px; text-align: left;">{{ item.nomorSn }}</span>
                             </td>
                             <td class="kt-datatable__cell">
                                 <span style="width: 120px; text-align: left;">{{ item.npwpPengguna }}</span>
@@ -125,6 +81,12 @@
                             </td>
                             <td class="kt-datatable__cell">
                                 <span style="width: 110px; text-align: left;">{{ formatDate(item.creationDate) }}</span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <div class="kt-section__content kt-section__content--solid">
+                                    <span style="width: 100px;" class="kt-badge kt-badge--brand kt-badge--inline" *ngIf="item.tglPembubuhan == null">Belum</span>
+                                    <span style="width: 100px;" class="kt-badge kt-badge--success kt-badge--inline" *ngIf="item.tglPembubuhan != null">Sudah</span>
+                                </div>
                             </td>
                             <td class="kt-datatable__cell">
                                 <span style="width: 110px; text-align: left;">{{ formatDate(item.tglPembubuhan) }}</span>
