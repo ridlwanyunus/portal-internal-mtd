@@ -5,13 +5,15 @@ import { ShowMessageService } from '../../../../services/message/show-message.se
 import { ResponseTemplate } from '../../../../model/response-template.model';
 import { SharedService } from '../../../../services/shared/shared.service';
 import { MonitoringDistributorService } from '../../../../services/meterai/monitoring-meterai/monitoring-distributor.service';
+import { DatePipe } from '@angular/common';
+
 
 @Component({
-  selector: 'app-monitoring-distributor-details',
-  templateUrl: './monitoring-distributor-details.component.html',
-  styleUrl: './monitoring-distributor-details.component.css'
+  selector: 'app-monitoring-distributor-serial-number',
+  templateUrl: './monitoring-distributor-serial-number.component.html',
+  styleUrl: './monitoring-distributor-serial-number.component.css'
 })
-export class MonitoringDistributorDetailsComponent {
+export class MonitoringDistributorSerialNumberComponent {
   data: any;
   items: any = [];
   currentItemsToShow: any = [];
@@ -63,7 +65,8 @@ export class MonitoringDistributorDetailsComponent {
     private router: Router,
     public loadingService: LoadingServiceService,
     private messageService: ShowMessageService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private datepipe: DatePipe
   ) { 
     this.response = new ResponseTemplate({}, 0, '','');
     
@@ -76,13 +79,15 @@ export class MonitoringDistributorDetailsComponent {
     if(this.data){
       console.log(this.data);
 
-      this.tableHeader.kodeDistributor = this.data.item.kodeDistributor;
-      this.tableHeader.namaDistributor = this.data.item.namaDistributor;
-      this.tableHeader.npwpDistributor = this.data.item.npwpDistributor;
+      this.tableHeader.namaPengguna = this.data.item.pemungut.namaPengguna;
+      this.tableHeader.npwpPengguna = this.data.item.pemungut.npwpPengguna;
+      this.tableHeader.kodeDistributor = this.data.item.pemungut.kodeDistributor;
+      this.tableHeader.tahunMasa = this.data.filter;
 
-      this.tableOptions.search.search1 = this.data.filter; // tahun masa for ex: 202403
-      this.tableOptions.search.search2 = this.data.item.idDistributor; // id distributor: "01eec99a-de7d-1d88-a720-594"
-      this.getMonitoringPengguna(this.tableOptions.start, this.tableOptions.length, this.tableOptions.search);
+      this.tableOptions.search.search1 = this.data.item.pemungut.npwpPengguna; // NPWP Pengguna ex: 010000115051000
+      this.tableOptions.search.search2 = this.data.item.pemungut.kodeDistributor; // Kode Distributor: 000
+      this.tableOptions.search.search3 = this.data.filter; // Tahun Masa ex: 202403
+      this.getSerialNumberMonitoring(this.tableOptions.start, this.tableOptions.length, this.tableOptions.search);
     } else {
       this.router.navigate(['/meterai/monitoring-meterai/distributor/list']);
     }
@@ -94,8 +99,8 @@ export class MonitoringDistributorDetailsComponent {
   }
 
   // Get Monitoring Pengguna
-  getMonitoringPengguna(start: number, length: number, search: any){
-    this.monitoringDistributorService.getPenggunaMonitoring(start, length, search).subscribe({
+  getSerialNumberMonitoring(start: number, length: number, search: any){
+    this.monitoringDistributorService.getSerialNumberMonitoring(start, length, search).subscribe({
       next: (data) => {
         this.response = <ResponseTemplate> data;
         console.log(this.response);
@@ -107,7 +112,7 @@ export class MonitoringDistributorDetailsComponent {
         } else {
           this.items = {};
           this.currentItemsToShow = this.items;
-          this.recordsTotal = this.response.data.recordsTotal;
+          this.recordsTotal = 0;
           this.messageService.error(this.response.message);
         }
       },
@@ -123,21 +128,15 @@ export class MonitoringDistributorDetailsComponent {
   onPageChange($event: any): void {
     this.tableOptions.start = $event.pageIndex * $event.pageSize;
     this.tableOptions.length = $event.pageSize;
-    this.tableOptions.search.search1 = this.selectedTahun + this.selectedBulan;
-    this.getMonitoringPengguna(this.tableOptions.start, this.tableOptions.length, this.tableOptions.search);
+    this.tableOptions.search.search1 = this.data.item.pemungut.npwpPengguna; // NPWP Pengguna ex: 010000115051000
+    this.tableOptions.search.search2 = this.data.item.pemungut.kodeDistributor; // Kode Distributor: 000
+    this.tableOptions.search.search3 = this.data.filter; // Tahun Masa ex: 202403
+    
+    this.getSerialNumberMonitoring(this.tableOptions.start, this.tableOptions.length, this.tableOptions.search);
   }
 
-  // Action
-  details(item: any){
-    const data = {
-      filter: this.tableOptions.search.search1,
-      item: {
-        distributor: this.data.item,
-        pemungut: item
-      }
-    }
-    this.sharedService.setData(data);
-    this.router.navigate(['meterai/monitoring-meterai/distributor/serial-number'], { state: { data: data } });
+  // Date format
+  formatDate(date: string){
+    return this.datepipe.transform(date, 'YYYY-MM-dd hh:mm:ss');
   }
-
 }

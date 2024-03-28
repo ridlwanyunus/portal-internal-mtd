@@ -24,6 +24,7 @@ import { MonitoringDistributorDetailsComponent } from './meterai/monitoring-mete
 import { MonitoringSerialNumberComponent } from './meterai/monitoring-meterai/monitoring-serial-number/monitoring-serial-number.component';
 import { MonitoringSerialNumberListComponent } from './meterai/monitoring-meterai/monitoring-serial-number/monitoring-serial-number-list/monitoring-serial-number-list.component';
 import { MonitoringSerialNumberDetailsComponent } from './meterai/monitoring-meterai/monitoring-serial-number/monitoring-serial-number-details/monitoring-serial-number-details.component';
+import { MonitoringDistributorSerialNumberComponent } from './meterai/monitoring-meterai/monitoring-distributor/monitoring-distributor-serial-number/monitoring-distributor-serial-number.component';
 const routes: Routes = [
   { path: '', component: MonitoringSerialNumberListComponent },
   { path: 'modals', component: ModalComponent },
@@ -34,7 +35,8 @@ const routes: Routes = [
         component: MonitoringDistributorComponent,
         children: [
           { path: 'list', component: MonitoringDistributorListComponent },
-          { path: 'details', component: MonitoringDistributorDetailsComponent }
+          { path: 'details', component: MonitoringDistributorDetailsComponent },
+          { path: 'serial-number', component: MonitoringDistributorSerialNumberComponent },
         ] 
       },
       { path: 'pengguna', 

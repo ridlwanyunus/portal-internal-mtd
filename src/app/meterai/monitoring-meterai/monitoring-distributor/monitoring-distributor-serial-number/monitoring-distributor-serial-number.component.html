@@ -1,0 +1,154 @@
+<div class="kt-portlet kt-portlet--mobile">
+    <div class="kt-portlet__head kt-portlet__head--lg">
+        <div class="kt-portlet__head-label">
+            <span class="kt-portlet__head-icon">
+                <i class="kt-font-brand flaticon2-line-chart"></i>
+            </span>
+            <h3 class="kt-portlet__head-title">
+                Monitoring Details Meterai
+                <small></small>
+            </h3>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <div class="kt-portlet__head-wrapper">
+                <div class="kt-portlet__head-actions">
+                    &nbsp;
+                    <a routerLink="/meterai/monitoring-meterai/distributor/list"
+                        class="btn btn-brand btn-elevate btn-icon-sm">
+                        <i class="flaticon2-back"></i>
+                        Tutup
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <!--begin: Search Form -->
+        <div class="kt-form">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="form-group row">
+                        <label class="col-2" style="font-weight: 600;">Nama Pemungut</label>
+                        <label>{{ tableHeader.namaPengguna }}</label>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-2" style="font-weight: 600;">NPWP Pemungut</label>
+                        <label>{{ tableHeader.npwpPengguna }}</label>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-2" style="font-weight: 600;">Printer</label>
+                        <label>{{ tableHeader.kodeDistributor }}</label>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-2" style="font-weight: 600;">Masa Pajak</label>
+                        <label>{{ tableHeader.tahunMasa }}</label>
+                    </div>
+                    <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
+                </div>
+            </div>
+        </div>
+        <!--end: Search Form -->
+
+    </div>
+    <div class="kt-portlet__body kt-portlet__body--fit">
+
+        <!--begin: Datatable -->
+        <div class="kt-datatable kt-datatable--default kt-datatable--brand kt-datatable--loaded" style="">
+            <table class="kt-datatable__table" style="display: block;">
+                <thead class="kt-datatable__head">
+                    <tr class="kt-datatable__row" style="left: 0px;">
+                        <th data-field="RecordID"
+                            class="kt-datatable__cell--center kt-datatable__cell kt-datatable__cell--check">
+                            <span style="width: 20px;">
+                                <label class="kt-checkbox kt-checkbox--single kt-checkbox--all kt-checkbox--solid">
+                                    <input type="checkbox">&nbsp;<span></span>
+                                </label>
+                            </span>
+                        </th>
+                        <th class="kt-datatable__cell kt-datatable__cell--sort">
+                            <span style="width: 110px;">SN Meterai</span>
+                        </th>
+                        <th class="kt-datatable__cell kt-datatable__cell--sort">
+                            <span style="width: 110px;">Printer Request</span>
+                        </th>
+                        <th class="kt-datatable__cell kt-datatable__cell--sort">
+                            <span style="width: 110px;">Device Request</span>
+                        </th>
+                        <th class="kt-datatable__cell kt-datatable__cell--sort">
+                            <span style="width: 110px;">Tanggal Pembubuhan</span>
+                        </th>
+                        <th class="kt-datatable__cell kt-datatable__cell--sort">
+                            <span style="width: 110px;">Printer Pembubuhan</span>
+                        </th>
+                        <th class="kt-datatable__cell kt-datatable__cell--sort">
+                            <span style="width: 110px;">Device Pembubuhan</span>
+                        </th>
+                        <th data-field="Actions" data-autohide-disabled="false"
+                            class="kt-datatable__cell kt-datatable__cell--sort">
+                            <span style="width: 110px;">Actions</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="kt-datatable__body" style="">
+                    <div *ngIf="response.status == 1">
+                        <tr data-row="0" class="kt-datatable__row" style="left: 0px;"
+                            *ngFor="let item of currentItemsToShow">
+                            <td class="kt-datatable__cell--center kt-datatable__cell kt-datatable__cell--check"
+                                data-field="RecordID">
+                                <span style="width: 20px;">
+                                    <label class="kt-checkbox kt-checkbox--single kt-checkbox--solid">
+                                        <input type="checkbox" value="1">&nbsp;<span></span>
+                                    </label>
+                                </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span style="width: 110px;">{{ item.nomorSn }}</span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span style="width: 110px;">{{ item.snPrinter }}</span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span style="width: 110px;">{{ item.idDevice }}</span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span style="width: 110px;">{{ formatDate(item.tglPembubuhan) }}</span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span style="width: 110px;">{{ item.snPrinterPembubuhan }}</span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span style="width: 110px;">{{ item.idDevicePembubuhan }}</span>
+                            </td>
+                            <td data-field="Actions" data-autohide-disabled="false" class="kt-datatable__cell"><span
+                                    style="overflow: visible; position: relative; width: 110px;">
+                                    
+                                </span>
+                            </td>
+                        </tr>
+                    </div>
+                    <div *ngIf="response.status != 1">
+                        <tr data-row="0" class="kt-datatable__row" style="left: 0px;">
+                            <td class="kt-datatable__cell">
+                                <div class="kt-section__content kt-section__content--solid">
+                                    <span style="width: 100%; text-align: center; font-size: 1em;"
+                                        class="kt-badge">Tidak ada data ditemukan</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </div>
+                </tbody>
+            </table>
+            <mat-paginator (page)="onPageChange($event)" [length]="recordsTotal" [pageSize]="pageSize"
+                [pageSizeOptions]="[5, 10, 25, 100]" aria-label="select page of distributor">
+            </mat-paginator>
+        </div> <!--end: Datatable -->
+
+
+
+        <!-- begin: Loading -->
+        <div *ngIf="loadingService.isLoading | async" id="loading">
+            <mat-spinner diameter="80" mode="indeterminate" strokeWidth="8"></mat-spinner>
+        </div>
+        <!-- end: Loading -->
+    </div>
+</div>

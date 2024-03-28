@@ -42,7 +42,11 @@ export class MonitoringDistributorListComponent implements OnInit, OnDestroy {
   tableOptions: any = {
     start: 0,
     length: this.pageSize,
-    search: this.search
+    search: {
+      search1: '', // masa tahun for ex: 202403
+      search2: '', // id distributor for ex: 12334-139acdfe-012faef
+      search3: ''
+    }
   }
 
   response: any;
@@ -66,7 +70,7 @@ export class MonitoringDistributorListComponent implements OnInit, OnDestroy {
     this.setYear();
 
     // Load list monitoring distributor
-    this.tableOptions.search = this.selectedTahun + ('0'+this.selectedBulan).slice(-2);
+    this.tableOptions.search.search1 = this.selectedTahun + ('0'+this.selectedBulan).slice(-2);
     this.getDistributor(this.tableOptions.start, this.tableOptions.length, this.tableOptions.search);
   }
   ngOnDestroy(): void {
@@ -133,18 +137,18 @@ export class MonitoringDistributorListComponent implements OnInit, OnDestroy {
 
   // search by month and year
   searchButton(){
-    this.tableOptions.search = this.selectedTahun + ('0'+this.selectedBulan).slice(-2);
+    this.tableOptions.search.search1 = this.selectedTahun + ('0'+this.selectedBulan).slice(-2);
     this.getDistributor(this.tableOptions.start, this.tableOptions.length, this.tableOptions.search);
   }
 
   // load details page
   details(item: any){
     const data = {
-      filter: this.tableOptions.search,
+      filter: this.tableOptions.search.search1,
       item: item
     }
     this.sharedService.setData(data);
-    this.router.navigate(['meterai/monitoring-meterai/distributor/details'], { state: { data: item } });
+    this.router.navigate(['meterai/monitoring-meterai/distributor/details'], { state: { data: data } });
   }
 
 }

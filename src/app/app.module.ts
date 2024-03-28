@@ -46,6 +46,7 @@ import { MonitoringSerialNumberListComponent } from './meterai/monitoring-metera
 import { MonitoringSerialNumberDetailsComponent } from './meterai/monitoring-meterai/monitoring-serial-number/monitoring-serial-number-details/monitoring-serial-number-details.component';
 import { MonitoringDistributorListComponent } from './meterai/monitoring-meterai/monitoring-distributor/monitoring-distributor-list/monitoring-distributor-list.component';
 import { MonitoringDistributorDetailsComponent } from './meterai/monitoring-meterai/monitoring-distributor/monitoring-distributor-details/monitoring-distributor-details.component';
+import { MonitoringDistributorSerialNumberComponent } from './meterai/monitoring-meterai/monitoring-distributor/monitoring-distributor-serial-number/monitoring-distributor-serial-number.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { MonitoringDistributorDetailsComponent } from './meterai/monitoring-mete
     MonitoringSerialNumberListComponent,
     MonitoringSerialNumberDetailsComponent,
     MonitoringDistributorListComponent,
-    MonitoringDistributorDetailsComponent
+    MonitoringDistributorDetailsComponent,
+    MonitoringDistributorSerialNumberComponent
   ],
   imports: [
     BrowserModule,
