@@ -139,4 +139,19 @@ export class MonitoringDistributorSerialNumberComponent {
   formatDate(date: string){
     return this.datepipe.transform(date, 'YYYY-MM-dd hh:mm:ss');
   }
+
+  formatTahun(tahunMasa: string){
+    return tahunMasa.slice(0,4);
+  }
+
+  formatMasa(tahunMasa: string){
+
+    for(let i=0; i<this.bulans.length; i++){
+      let bulanIndex = tahunMasa.slice(5,6);
+
+      if(this.bulans[i].id == bulanIndex){
+        return this.bulans[i].value
+      }
+    }
+  }
 }

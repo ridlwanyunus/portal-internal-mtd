@@ -26,22 +26,25 @@
         <!--begin: Search Form -->
         <div class="kt-form">
             <div class="row">
-                <div class="col-xl-12">
+                <div class="col-xl-6">
                     <div class="form-group row">
-                        <label class="col-2" style="font-weight: 600;">Nama Pemungut</label>
+                        <label class="col-4" style="font-weight: 600;">Nama Pemungut</label>
                         <label>{{ tableHeader.namaPengguna }}</label>
                     </div>
                     <div class="form-group row">
-                        <label class="col-2" style="font-weight: 600;">NPWP Pemungut</label>
+                        <label class="col-4" style="font-weight: 600;">NPWP Pemungut</label>
                         <label>{{ tableHeader.npwpPengguna }}</label>
                     </div>
+                    <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
+                </div>
+                <div class="col-xl-6">
                     <div class="form-group row">
-                        <label class="col-2" style="font-weight: 600;">Printer</label>
-                        <label>{{ tableHeader.kodeDistributor }}</label>
+                        <label class="offset-md-2 col-2" style="font-weight: 600;">Masa</label>
+                        <label>{{ formatMasa(tableHeader.tahunMasa) }}</label>
                     </div>
                     <div class="form-group row">
-                        <label class="col-2" style="font-weight: 600;">Masa Pajak</label>
-                        <label>{{ tableHeader.tahunMasa }}</label>
+                        <label class="offset-md-2 col-2" style="font-weight: 600;">Tahun</label>
+                        <label>{{ formatTahun(tableHeader.tahunMasa) }}</label>
                     </div>
                     <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
                 </div>
@@ -66,7 +69,7 @@
                             </span>
                         </th>
                         <th class="kt-datatable__cell kt-datatable__cell--sort">
-                            <span style="width: 110px;">SN Meterai</span>
+                            <span style="width: 175px;">SN Meterai</span>
                         </th>
                         <th class="kt-datatable__cell kt-datatable__cell--sort">
                             <span style="width: 110px;">Printer Request</span>
@@ -83,9 +86,8 @@
                         <th class="kt-datatable__cell kt-datatable__cell--sort">
                             <span style="width: 110px;">Device Pembubuhan</span>
                         </th>
-                        <th data-field="Actions" data-autohide-disabled="false"
-                            class="kt-datatable__cell kt-datatable__cell--sort">
-                            <span style="width: 110px;">Actions</span>
+                        <th class="kt-datatable__cell kt-datatable__cell--sort">
+                            <span style="width: 110px;">Status Pembubuhan</span>
                         </th>
                     </tr>
                 </thead>
@@ -102,7 +104,7 @@
                                 </span>
                             </td>
                             <td class="kt-datatable__cell">
-                                <span style="width: 110px;">{{ item.nomorSn }}</span>
+                                <span style="width: 175px;">{{ item.nomorSn }}</span>
                             </td>
                             <td class="kt-datatable__cell">
                                 <span style="width: 110px;">{{ item.snPrinter }}</span>
@@ -119,10 +121,13 @@
                             <td class="kt-datatable__cell">
                                 <span style="width: 110px;">{{ item.idDevicePembubuhan }}</span>
                             </td>
-                            <td data-field="Actions" data-autohide-disabled="false" class="kt-datatable__cell"><span
-                                    style="overflow: visible; position: relative; width: 110px;">
-                                    
-                                </span>
+                            <td class="kt-datatable__cell">
+                                <div class="kt-section__content kt-section__content--solid">
+                                    <span style="width: 100px;" class="kt-badge kt-badge--brand kt-badge--inline"
+                                        *ngIf="item.tglPembubuhan == null">Belum</span>
+                                    <span style="width: 100px;" class="kt-badge kt-badge--success kt-badge--inline"
+                                        *ngIf="item.tglPembubuhan != null">Sudah</span>
+                                </div>
                             </td>
                         </tr>
                     </div>
